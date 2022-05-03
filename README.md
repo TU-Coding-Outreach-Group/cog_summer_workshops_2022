@@ -1,1 +1,1 @@
-# cog_summer_workshops_2022
+# COG Summer Workshops 2022
