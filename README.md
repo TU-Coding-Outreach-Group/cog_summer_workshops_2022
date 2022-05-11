@@ -4,6 +4,8 @@ The Coding Outreach Group (COG) weekly summer workshops focus on a specific rese
 
 ## Agenda
 Workshops are on Wednesdays in June and July from 1:30pm to 3:00pm
+| Date        | Workshop                             | Presenter  |
+| :-----------: |:------------------------------------:| :-----------:|
 | TBA    | [Git/Github Website](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/github)                       | Katie Jobson |
 | TBA    | [Natural Language Processing](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/nlp)                             | Celia Litovsty |
 | TBA    | [Psychopy](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/psychopy)      | Elizabeth Beard |
