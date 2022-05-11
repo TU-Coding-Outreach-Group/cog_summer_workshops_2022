@@ -2,6 +2,8 @@
 # Git/Github Website
 07/15/2021
 
+*** UNDER CONSTRUCTION ***
+
 __**Content creator:**__ Katie Jobson
 
 __**Content editor:**__ Haroon Popal
@@ -43,7 +45,7 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 | Outro | RSA with multi-dimensional data | 5 min |
 
 ## Additional Resources
-*** UNDER CONSTRUCTION ***
+
 
 ### Literature
 - [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
