@@ -12,7 +12,7 @@ Workshops are on Wednesdays in June and July from 1:30pm to 3:00pm
 | TBA    | [Neuroimaging in Python](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/neuroimaging-in-python) | Kim Nguyen |                          
 | TBA    | [Data Visualization in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r)                               | Ginny Ulichney |
 | TBA    | [Representational Similarity Analysis](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/rsa)                 | Büşra Tanrıverdi |
-| TBA    | [Data Wrangling in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r)                 | Bilyl Mitchell |
+| TBA    | [Data Wrangling in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r)                 | Billy Mitchell |
 | TBA    | [Javascript Integration with Qualtrics](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics)                     | V.S. Vaidyanathan |
 
 
