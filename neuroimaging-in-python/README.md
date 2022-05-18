@@ -1,8 +1,10 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Neuroimaging in Python
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ Kim Nguyen
+
+__**Content editor:**__ Haroon Popal
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 
