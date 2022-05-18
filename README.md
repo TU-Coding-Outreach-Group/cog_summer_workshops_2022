@@ -22,6 +22,7 @@ Each workshop will list the necessary pre-requesites in their respective README.
 - A text editor you're comfortable with (Atom, [VSCode](https://code.visualstudio.com/), etc.)
 - [Jupyter notebook](https://jupyter.org/install), also available through [Anaconda](https://www.anaconda.com/products/individual#Downloads)
 - Git and create a [GitHub](https://github.com/) account
+- [R](https://archive.linux.duke.edu/cran/) and [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
 
 For PC users, you can set up the bash command line and git by installing [this program](https://gitforwindows.org/).
 
