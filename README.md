@@ -30,3 +30,5 @@ For PC users, you can set up the bash command line and git by installing [this p
 ## Acknowledgements
 
 __**Workshop Organizers:**__ Elizabeth Beard, Katie Jobson, Billy Mitchell, Haroon Popal
+
+This workshop series was supported by the Department of Psychology and Neuroscience at Temple University. 
