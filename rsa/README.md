@@ -66,6 +66,7 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 ### Other Workshops
 - [Mark Thornton's RSA workshop](https://colab.research.google.com/drive/1UEtFr-oJisRzl8BmzbNdMZZ7-Of0gLcH?usp=sharing) for Society for Social Neuroscience 2021
 - [MIND 2018 RSA workshop](https://github.com/markallenthornton/mind_2018/tree/master/tutorials/representational_similarity) in R
-- [COG 2021 RSA Workshop](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/rsa)
+- [COG 2021 RSA workshop](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/rsa) by Haroon Popal
+- [COG 2020 RSA workshop](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2020/tree/master/representational-similarity-analysis) by Iva Brunec
 
 
