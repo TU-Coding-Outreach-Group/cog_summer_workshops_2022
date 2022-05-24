@@ -1,8 +1,10 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Data Wrangling in R
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ Billy Mitchell
+
+__**Content creator:**__ 
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 
