@@ -1,8 +1,10 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Psychopy
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ Elizabeth Beard
+
+__**Content creator:**__ 
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 
