@@ -1,5 +1,5 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Data Visualization in R
 07/15/2021
 
 __**Content creator:**__ Ginny Ulichney
