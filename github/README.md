@@ -32,8 +32,8 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 3. Demonstrate RSA with a region of interest approach
 
 ## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/rsa/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/blob/main/rsa/rsa_intro-COG2021.pdf)
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/github/index.html)
+- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/github/github-COG2022.pdf)
 
 ## Outline
 | Topic | Time | Description |
@@ -64,8 +64,14 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 - [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
 - [NeuroRA](https://neurora.github.io/NeuroRA/)
 
-### Other Workshops
-- [Mark Thornton's RSA workshop](https://colab.research.google.com/drive/1UEtFr-oJisRzl8BmzbNdMZZ7-Of0gLcH?usp=sharing) for Society for Social Neuroscience 2021
-- [MIND 2018 RSA workshop](https://github.com/markallenthornton/mind_2018/tree/master/tutorials/representational_similarity) in R
+### Other Resources
+- COG 2021 [Intro to git and GitHub](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/git-github) by Elizabeth Beard
+  - This workshop is focused on have people manage repositories on their local computers for version control
+- [Software Carpetry](https://swcarpentry.github.io/git-novice/)
+- Elizabeth DuPre's [Git Course](https://emdupre.github.io/git-course/)
+- Stephanie DeCross's [Visual Guide to GitHub](https://zenodo.org/record/3369466#.YL4cVDZKh24)
+- Mozilla's [GitHub training](https://mozilla.github.io/open-leadership-training-series/articles/get-your-project-online/introducing-github-for-collaborative-work-and-version-control/)
+- Jenny Bryan's [Happy Git and GitHub for the useR](https://happygitwithr.com/)
+- [GitHub's Documentation](https://docs.github.com/en/github/getting-started-with-github/quickstart/set-up-git)
 
 
