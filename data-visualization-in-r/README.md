@@ -2,7 +2,9 @@
 # Representational Similarity Analysis
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ Ginny Ulichney
+
+__**Content creator:**__ Billy Mitchell
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 
