@@ -12,7 +12,7 @@ __**Content Editor:**__ Haroon Popal
 Representational similarity analysis (RSA) is a newer analytic technique that can be used for both neural and behavioral data and is great for exploring high-dimensional data or comparing data across different modalities.
 
 ## Prerequisites
-1. Comfort coding in python
+1. Comfort coding in R
 2. Familiarity with file path structures
 3. Faimilarity with general neuroimaging analysis concepts
 
@@ -31,17 +31,17 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 3. Demonstrate RSA with a region of interest approach
 
 ## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/rsa/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/blob/main/rsa/rsa_intro-COG2021.pdf)
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/rsa/index.html)
+- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/rsa_intro-COG2022.pdf)
 
 ## Outline
 | Topic | Time | Description |
 | --- | --- | --- |
 | Intro | Why use RSA? | 5 min |
-| Tutorial 1 | ROI RSA | 30 min |
-| Tutorial 2 | Searchlight RSA (coming soon) | 15 min |
-| Tutorial 3 | Significance Testing (coming soon) | 10 min |
-| Outro | RSA with multi-dimensional data | 5 min |
+| Part 1 | Within Subject, Item-level RSA (ROI) | 30 min |
+| Part 2 | Across Subjects, Item-level RSA (ROI) | 15 min |
+| Part 3 | ROI RSA predicting behavior (memory) | 10 min |
+| Outro | Significance Testing, Additional Resources & Examples | 5 min |
 
 ## Additional Resources
 *** UNDER CONSTRUCTION ***
