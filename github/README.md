@@ -1,6 +1,6 @@
 # Coding Outreach Group Summer Workshop
-# Git/Github Website
-07/15/2021
+# Git/Github Pages
+05/01/2022
 
 *** UNDER CONSTRUCTION ***
 
@@ -8,61 +8,45 @@ __**Content creator:**__ Katie Jobson
 
 __**Content editor:**__ Haroon Popal
 
+### Description
 
-## Description
-Representational similarity analysis (RSA) is a newer analytic technique that can be used for both neural and behavioral data and is great for exploring high-dimensional data or comparing data across different modalities.
+This workshop aims to cover the basics of GitHub, and will give a tutorial on how to make a webpage with GitHub Pages.
 
-## Prerequisites
-1. Comfort coding in python
-2. Familiarity with file path structures
-3. Faimilarity with general neuroimaging analysis concepts
+### Prerequisites
 
-## Set Up (do before the workshop)
-1. Make sure you've installed the following python packages:
-    - [nltools](https://nltools.org/install.html) in a python 3 environment. `pip install nltools`
-2. Make sure you have a python 2 and a python 3 environment.
-    - Instructions on how to [set up environments with anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/switch-environment/).
-    - [nltools](https://nltools.org/install.html) 
-    - We will be using the nltools package to create and visual RDMs, and complete a region of interest RSA.
-3. Install [pymvpa](pymvpa.org/installation.html) in a python 2 environment.
-    
-## Workshop objectives:
-1. Introduce the basic framework of representational similarity analysis 
-2. Demonstrate how to create representational dissimilarity matrices from models, behavioral data, and neuroimaging data
-3. Demonstrate RSA with a region of interest approach
-
-## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/github/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/github/github-COG2022.pdf)
-
-## Outline
-| Topic | Time | Description |
-| --- | --- | --- |
-| Intro | Why use RSA? | 5 min |
-| Tutorial 1 | ROI RSA | 30 min |
-| Tutorial 2 | Searchlight RSA (coming soon) | 15 min |
-| Tutorial 3 | Significance Testing (coming soon) | 10 min |
-| Outro | RSA with multi-dimensional data | 5 min |
-
-## Additional Resources
+1. Basic knowledge of bash scripting. 
+2. A picture of your lab logo (or your animal)
 
 
-### Literature
-- [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
-    - The original paper that introduced RSA
-- [Popal et al., 2019](https://academic.oup.com/scan/article/14/11/1243/5693905)
-    - An RSA how-to and why-to guide aimed for the social neuroscience community
-- [Dimsdale-Zucker & Ranganath, 2018](http://hrz-website.s3.amazonaws.com/papers/dimsdale-zucker_ranganath_2018_published-chapter.pdf)
-    - An in-depth RSA guide aimed for memory researchers
+### Set Up (to do before the workshop)
 
-### Packages
-- [Dartbrains](https://dartbrains.org/content/RSA.html)
-    - Excellent tutorial. Much of the code in this workshop was adapted from this resource.
-    - Uses the nltools package
-- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html)
-    - Includes searchlight analysis
-- [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
-- [NeuroRA](https://neurora.github.io/NeuroRA/)
+
+1. Make a GitHub account ([link to do this here](https://github.com/))
+2. For Windows: GitHub Desktop downloaded ([link to do this here](https://desktop.github.com/))
+    - You will also need to download [git for Windows](https://gitforwindows.org/)
+3. For Mac: Git Installer downloads ([link to do this here](https://sourceforge.net/projects/git-osx-installer/files/))
+    - If you have homebrew installed, I highly recommend just typing 'brew install git' into your command line
+
+
+### Workshop Objectives
+
+1. Learn some of the basic utilities of GitHub
+2. Create your own website!!
+
+
+### Workshop Materials
+
+- [Notebook Viewer]()
+
+### Outline
+
+| Topic | Description | Time |
+|:-------:|:------------------:|:--------:|
+| Intro  | Why Use GitHub? | 5 min 
+| Part 1 | GitHub Basics | 15 min |
+| Part 2 | GitHub Pages and Templates | 10 min |
+| Part 3 | Creat Your Website! | 30 min |
+| Outro  | Load Your Website  | 5 min  |
 
 ### Other Resources
 - COG 2021 [Intro to git and GitHub](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/git-github) by Elizabeth Beard
