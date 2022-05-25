@@ -1,8 +1,10 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Javascript Integration with Qualtrics
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ V.S. Vaidyanathan
+
+__**Content creator:**__ Elizabeth Beard
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 

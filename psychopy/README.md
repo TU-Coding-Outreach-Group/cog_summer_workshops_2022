@@ -1,8 +1,10 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Psychopy
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ Elizabeth Beard
+
+__**Content creator:**__ 
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 
@@ -62,7 +64,6 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 - [NeuroRA](https://neurora.github.io/NeuroRA/)
 
 ### Other Workshops
-- [Mark Thornton's RSA workshop](https://colab.research.google.com/drive/1UEtFr-oJisRzl8BmzbNdMZZ7-Of0gLcH?usp=sharing) for Society for Social Neuroscience 2021
-- [MIND 2018 RSA workshop](https://github.com/markallenthornton/mind_2018/tree/master/tutorials/representational_similarity) in R
+- COG 2021 [Psychopy workshop](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/psychopy) by Susan Benear
 
 

@@ -1,8 +1,10 @@
 # Coding Outreach Group Summer Workshop
-# Representational Similarity Analysis
+# Natural Language Processing
 07/15/2021
 
-__**Content creator:**__ Haroon Popal
+__**Content creator:**__ Celia Litovsty
+
+__**Content editor:**__ 
 
 **WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 

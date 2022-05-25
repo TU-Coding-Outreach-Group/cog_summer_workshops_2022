@@ -29,8 +29,8 @@ In this workshop, we walk attendees through a series of traditional fMRI analyti
 2. Demonstrate benefits of scripting analyses in python
 
 ## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/neuroimaging-in-python/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/blob/main/neuroimaging-in-python/neuroimaging_python_intro-COG2021.pdf)
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/neuroimaging-in-python/index.html)
+- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/neuroimaging-in-python/neuroimaging_python_intro-COG2022.pdf)
 
 ## Outline
 | Topic | Time | Description |
@@ -53,16 +53,11 @@ In this workshop, we walk attendees through a series of traditional fMRI analyti
     - An in-depth RSA guide aimed for memory researchers
 
 ### Packages
-- [Dartbrains](https://dartbrains.org/content/RSA.html)
-    - Excellent tutorial. Much of the code in this workshop was adapted from this resource.
-    - Uses the nltools package
-- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html)
-    - Includes searchlight analysis
-- [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
-- [NeuroRA](https://neurora.github.io/NeuroRA/)
+- [nltools](https://nltools.org/)
 
-### Other Workshops
-- [Mark Thornton's RSA workshop](https://colab.research.google.com/drive/1UEtFr-oJisRzl8BmzbNdMZZ7-Of0gLcH?usp=sharing) for Society for Social Neuroscience 2021
-- [MIND 2018 RSA workshop](https://github.com/markallenthornton/mind_2018/tree/master/tutorials/representational_similarity) in R
+### Other Resources
+- COG 2021 [Neuroimaing in Python](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/neuroimaging-in-python) workshop by Elizabeth Beard and Haroon Popal
+- [Dartbrains](https://dartbrains.org/content/intro.html) teaches an introduction to functional neuroimaging using the nltools. This is the resource used to create the present workshop
+- [Nilearn](https://nilearn.github.io/stable/index.html) and [Nilearn office hours](https://github.com/nilearn/nilearn#:~:text=The%20nilearn%20team%20organizes%20regular,core%2Ddeveloper%20team%20is%20available.)
 
 
