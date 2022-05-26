@@ -15,7 +15,7 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 ### Prerequisites
 
 1. Basic knowledge of bash scripting. 
-2. A picture of your lab logo (or your animal)
+2. A picture of your lab logo (or your animal) in **PNG** format
 
 
 ### Set Up (to do before the workshop)
@@ -31,7 +31,7 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 ### Workshop Objectives
 
 1. Learn some of the basic utilities of GitHub
-2. Create your own website!!
+2. Create your own website (like [mine](https://kjobson-neuro.github.io/))!!
 
 
 ### Workshop Materials
@@ -50,7 +50,7 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 
 ### Other Resources
 - COG 2021 [Intro to git and GitHub](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/git-github) by Elizabeth Beard
-  - This workshop is focused on have people manage repositories on their local computers for version control
+- This workshop is focused on have people manage repositories on their local computers for version control
 - [Software Carpetry](https://swcarpentry.github.io/git-novice/)
 - Elizabeth DuPre's [Git Course](https://emdupre.github.io/git-course/)
 - Stephanie DeCross's [Visual Guide to GitHub](https://zenodo.org/record/3369466#.YL4cVDZKh24)
@@ -59,3 +59,10 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 - [GitHub's Documentation](https://docs.github.com/en/github/getting-started-with-github/quickstart/set-up-git)
 
 
+### Thanks to all of our participants:
+
+![Image 1](/images/image1.png)
+![Image 2](/images/image2.png)
+![Image 3](/images/image3.png)
+![Image 4](/images/image4.png)
+![Image 5](/images/image5.png)
