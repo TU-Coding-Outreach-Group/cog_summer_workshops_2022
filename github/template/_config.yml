@@ -1,0 +1,10 @@
+exclude: ["README.md"]
+
+remote_theme: just-the-docs/just-the-docs
+logo: "/assets/images/olson_logo_kj.png"
+color_scheme: cog_website
+
+aux_links:
+  "Katie Jobson on GitHub":
+    - "//github.com/kjobson-neuro"
+aux_links_new_tab: true
