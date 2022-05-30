@@ -44,7 +44,13 @@ previous year's workshop.
 | Q & A | --- | 15 min |
 
 ## Additional Resources
-
+Supplemental information can be found within the [supplements folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Supplements/) and includes:
+* A R Markdown Cheat Sheet
+* A  ```ggplot2``` Cheat Sheet
+* A ```gganimate``` Cheat Sheet
+* A ```shiny``` Cheat Sheet
+* A Basic Colors in R Guide
+* A Color Brewer Palette Guide
 
 ### Packages
 * ```gganimate``` - [provides tools to animate our visualizations](https://gganimate.com/)
