@@ -1,67 +1,61 @@
 # Coding Outreach Group Summer Workshop
 # Data Visualization in R
-07/15/2021
-
-__**Content creator:**__ Ginny Ulichney
+06/13/2022
 
 __**Content creator:**__ Billy Mitchell
 
-**WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
-
 ## Description
-Representational similarity analysis (RSA) is a newer analytic technique that can be used for both neural and behavioral data and is great for exploring high-dimensional data or comparing data across different modalities.
+With science communication depending increasingly upon digital spaces, the ways in which researchers can communicate their findings in presentations, posters, papers, or webpages is expanding. Animating visualizations or making their interactive can be more engaging for the audience and increase comprehension. This tutorial will provide a brief overview of the ways in which researchers can make static, basic graphs more dynamic, interactive, and interesting using basic functionality primarily with three R packages: gganimate, plotly, and shiny.     
 
 ## Prerequisites
-1. Comfort coding in python
-2. Familiarity with file path structures
-3. Faimilarity with general neuroimaging analysis concepts
+This workshop demands that users:
+1. have the R programming language downloaded, which can be accessed here:(https://archive.linux.duke.edu/cran/)
+2. have the R Studio user interface downloaded, which can be accessed here:(https://www.rstudio.com/products/rstudio/download/#download)
+3. have the packages listed in the following R script installed: (See "Visualizing Data in R.Rmd" for instructions)
+4. have a proficiency with the R programming language
+5. have a basic familiarity with plotting data in R; previous primers can be accessed here: (https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/data-visualization-in-r) 
 
 ## Set Up (do before the workshop)
-1. Make sure you've installed the following python packages:
-    - [nltools](https://nltools.org/install.html) in a python 3 environment. `pip install nltools`
-2. Make sure you have a python 2 and a python 3 environment.
-    - Instructions on how to [set up environments with anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/switch-environment/).
-    - [nltools](https://nltools.org/install.html) 
-    - We will be using the nltools package to create and visual RDMs, and complete a region of interest RSA.
-3. Install [pymvpa](pymvpa.org/installation.html) in a python 2 environment.
+1. Download the R Markdown script from github
+2. Download the datasets for the workshop
+3. Download the relevant packages (See below)
     
 ## Workshop objectives:
-1. Introduce the basic framework of representational similarity analysis 
-2. Demonstrate how to create representational dissimilarity matrices from models, behavioral data, and neuroimaging data
-3. Demonstrate RSA with a region of interest approach
+1. Demonstrate how to generate interactive visualizations w/ ```plotly```
+2. Demonstreat how to generate animated visualizations w/ ```gganimate```
+3. Demonstrate how to generate reactive visualizations w/ ```shiny```
 
-## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/rsa/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/blob/main/rsa/rsa_intro-COG2021.pdf)
+## What We Won't Cover:
+We will not be covering data wrangling, or how to format the data to in way that facilitates visualization. This will be covered in a 
+preceding workshop designed by Ginny Ulichney. We also will not be covering how to conduct statistical tests of the data that we will 
+be visualizing. Lastly, we will not be reviewing many basic visualizations like bar graphs or regression plots that I had covered in the 
+previous year's workshop.  
 
 ## Outline
-| Topic | Time | Description |
+| Section | Description | Time |
 | --- | --- | --- |
-| Intro | Why use RSA? | 5 min |
-| Tutorial 1 | ROI RSA | 30 min |
-| Tutorial 2 | Searchlight RSA (coming soon) | 15 min |
-| Tutorial 3 | Significance Testing (coming soon) | 10 min |
-| Outro | RSA with multi-dimensional data | 5 min |
+| Intro | What's so special about dynamic plots? | 05 min |
+| Setup | Loading packages, data, and background | 05 min |
+| Section 1 | Data Distributions | 05 min |
+| Section 2 | Interactive Visualizations | 10 min |
+| Section 3 | Animated Visualizations | 10 min |
+| Section 4 | Reactive Visualizations | 25 min |
+| Conclusion | Where to go from here | 05 min |
+| Q & A | --- | 15 min |
 
 ## Additional Resources
-*** UNDER CONSTRUCTION ***
 
-### Literature
-- [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
-    - The original paper that introduced RSA
-- [Popal et al., 2019](https://academic.oup.com/scan/article/14/11/1243/5693905)
-    - An RSA how-to and why-to guide aimed for the social neuroscience community
-- [Dimsdale-Zucker & Ranganath, 2018](http://hrz-website.s3.amazonaws.com/papers/dimsdale-zucker_ranganath_2018_published-chapter.pdf)
-    - An in-depth RSA guide aimed for memory researchers
 
 ### Packages
-- [Dartbrains](https://dartbrains.org/content/RSA.html)
-    - Excellent tutorial. Much of the code in this workshop was adapted from this resource.
-    - Uses the nltools package
-- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html)
-    - Includes searchlight analysis
-- [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
-- [NeuroRA](https://neurora.github.io/NeuroRA/)
+* ```gganimate``` - [provides tools to animate our visualizations](https://gganimate.com/)
+* ```htmlwidgets``` - [creates stand-alone widgets for both interactive and reactive visualizations](https://www.htmlwidgets.org/)
+* ```naniar``` - [contains a host of helpful missing data functions and visualizations](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)
+* ```plotly``` - [the premier interactive graphing library for both R and python](https://plotly.com/r/)
+* ```RColorBrewer``` - [provides premade palettes that are user-friendly and colorblind-friendly](https://cran.r-project.org/web/packages/RColorBrewer/index.html)
+* ```shiny``` - [powerful package that will generate web applications with javascript frontends and R engines](https://shiny.rstudio.com/)
+* ```tidyverse``` - [a collection of packages that are always incredibly helpful no matter what project you're working on; sometimes the only package I load (contains ggplot2](https://www.tidyverse.org/packages/)
+* ```transformr``` - [necessary to animate regression lines](https://cran.r-project.org/web/packages/transformr/index.html)
+* ```VIM``` - [visualization and imputation of missing data](https://cran.r-project.org/web/packages/VIM/index.html)
 
 ### Other Workshops
 - COG 2021 [Data Visualization in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/data-visualization-in-r) workshop by Billy Mitchell
