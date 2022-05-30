@@ -1,0 +1,621 @@
+---
+title: "Visualizing Data in R"
+author: "Mitchell, W.J."
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+original: "06/13/2022"
+output:
+  html_document:
+    number_sections: true
+    toc: true
+    toc_depth: 2
+    toc_float: 
+      collapsed: false
+    df_print: paged
+    css: !expr here::here("./style_bootcamp.css")
+knit: (function(inputFile, encoding) { 
+      out_dir <- './';
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file=file.path(dirname(inputFile), out_dir, 'index.html')) })
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# Introduction
+
+![**Introduction Video**](Presentation/Introduction.mp4)
+
+Today we will be be creating dynamic, interactive visualizations as a means of representing underlying quantitative and qualitative trends in a pre-existing (albeit, heavily altered) dataset. This data has already been formatted and cleaned to facilitate visualizations. We will **not** be reviewing how to wrangle this data or hypothesis test this data today. This was covered during our 2021 bootcamp, which can be [accessed on our github](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/R). We also won't really be focusing on basic ggplot visualizations for this data today. This was covered in our 2020 and 2021 summer workshops, which can also be [accessed on our github](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/data-visualization-in-r). This workshop builds upon previous workshops to demonstrate how to generate advanced, creative plots appropriate for both academic and industry presentations. Luckily, many of the resources to generate these plots are pretty user-friendly, so it's not a very code-heavy workshop, but it does necessitate comfortability with ggplot and intermediate R syntax.
+
+# Loading Packages
+
+Let's get started by first loading the packages that we're going to need in this workshop. I'm very fond of the ```pacman``` package, which contains this nifty ```p_load``` function. ```p_load``` should accept the names of all of the packages that we want to use. Any packages listed will be downloaded if you don't already have them, updated if they are out of date, and loaded into our environment. This is the basic format:
+
+```{r Package Management, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+  install.packages("pacman")
+  pacman:p_load(Package1, Package2, Package3)
+```
+
+## Exercise 1
+We're going to start with something easy. Install and load the following packages using ```pacman```:  
+
+  * ```gganimate```
+  * ```htmlwidgets```
+  * ```naniar```
+  * ```plotly``` 
+  * ```RColorBrewer```
+  * ```shiny```
+  * ```tidyverse```
+  * ```transformr```
+  * ```VIM```
+  
+```{r Exercise 1, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise1.R)
+
+
+# Loading Data
+
+![**Setup Video**](Presentation/Setup.mp4)
+
+Next, we'll specify the working directory that we'll be storing the plots that we generate within. This should change from person to person. NOTE: I will try to consistently use **ALL CAPS** letters to indicate when you should be replacing my text with text specific to you or text specific to a certain exercise. Think of **ALL CAPS** text as placeholders for you to alter.
+```{r Setting Working Directory, eval=FALSE, include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+  dir_plots <- "C:/YOUR/PATH/HERE"
+``` 
+
+Lastly, we're going to load dataframe. I've saved this file as an R dataframe, which *should* reduce potential issues across different operating systems:
+
+```{r Loading Dataframe, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+   load("C:/Users/ [YOUR/PATH/HERE] /COG Summer Workshop Series 2022/Dataframes/df.rda")
+```
+
+Now that setup is done, let's begin!
+
+# A Quick Primer on the Data
+
+This is a subset of deidentified data from the SAN & AML lab's 2019 haunted house study, wherein participants were asked to traverse Eastern State Penitentiary in groups of 3 to 5 people and then report on their memories, affective experiences, and regulatory behavior. Participants (PID) reported on 10 chronologically-ordered events (Events) that occurred within the house to which they had a significant emotional reaction. Participants identified which emotions they experienced ("Emotion"), how intense those emotions were ("Emo.Extent"), and how much effort they put into regulating those emotions ("Reg.Extent"). Other factors include summary statistics for depression ("BDI"), anxiety ("STAI"), regulation tendencies ("ERQ"), uncertainty tolerance ("IUS"), and general fear levels in the haunted house ("Fear_During").
+
+![**A Scene From the Hauned House**](images/TBTW.png)
+
+# Data Distribution
+
+![**Section 1**](Presentation/Section1.mp4)
+
+As I had mentioned earlier, we can generally assume that this dataset is ideally structured for generating visualizations, so we won't be covering basic visualizations like histograms or qqplots. Those were covered extensively in previous workshops. However, there are a few neat tricks that were not covered in the past workshop that I wanted to share today. 
+
+## Missing Data
+
+There are a millions ways to review and conceptualize patterns of missing data in R, but one collection of tools I've recently found really helpful for this exact problem are the ```gg_miss_var``` function from the ```naniar``` package and the ```aggr``` command from ```VIM```. 
+
+We currently don't have any missing data in our dataframe, but if we temporarily create some, we can easily see what it does.
+```{r Visualizing Amount of Missing Data}
+# Setting a seed to ensure that the sampling below happens the same way everytime.
+set.seed(1)
+
+# Create a temporary dataframe for demonstration purposes that's identical to our master dataframe
+df_temp <- df
+
+# Iterate through each column of the temporary dataframe
+for (i in 1:ncol(df_temp)){
+  # Randomly choose between 1 and 50 rows with which we can replace the current value with NA
+  df_temp[sample(x = 1:nrow(df_temp), 
+                 size = sample(x = 1:50,
+                               size = 1), 
+                 replace = F),i] <- NA 
+}
+
+# Execute the gg_miss_var command on the temporary dataframe
+gg_miss_var(df_temp)
+```
+
+Now we can see a printout for exactly how many variables we have missing for each of our columns, or variables. This is helpful to know, but what would be even better is the pattern of information that that is missing. If we find that we're consistently missing information in specific patterns, it might be indicative of a much deeper problem with our study design. This is where ```aggr``` comes in:
+
+```{r Visualizing Pattern of Missing data}
+summary(aggr(df_temp, sortVar=TRUE))$combinations
+```
+
+From ```aggr```, we get a few outputs:
+
+* We get visualization and text output of the proportion of data missing for each variable (similar to ```gg_miss_var```)
+* We get text output of the combinations of missing data and how often those combinations recur. Our most frequent combination is no missing data (42.8% of rows), which is great! We then see the next most common is only missing data in the final row (03.4% of rows), and so on. We also get a visualization for this one as well.
+
+```{r Cleaning our Space for Distributions}
+# We won't be needing this anymore
+rm(df_temp)
+```
+
+## Violin Plots
+
+Now that we've looked at the data, you might be wondering what the data looks like, and violin plots are one way to do that. Interestingly enough, it seems like a lot of people ask for help with violin plots, but once you know what to do, they are fairly simple to plot. 
+
+We're going to start much like any other ggplot, by specifying our background aesthetic variables, labels, themes, etc. 
+```{r Violin Plots - Step 1, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+ggplot(data = df, aes(x = XVAR, y = YVAR)) + 
+      theme_classic() +
+      xlab("XLABEL") +
+      ylab("YLABEL") +
+      theme(legend.position="none")
+```
+
+Next we'll go ahead and add our datapoints with the ```geom_jitter``` command
+```{r Violin Plots - Step 2, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+ggplot(data = df, aes(x = XVAR, y = YVAR)) + 
+      theme_classic() +
+      geom_jitter(aes(alpha=0.2),shape=16) +
+      xlab("XLABEL") +
+      ylab("YLABEL") +
+      theme(legend.position="none")
+
+```
+
+Remember: ggplot builds it's visualizations in layers, so things we specify earlier in the building process lay beneath things we specify later in the building process. With that in mind, we've going to overlay the actual violin component beneath the jittered datapoints.
+```{r Violin Plots - Step 3, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+ggplot(data = df, aes(x = XVAR, y = YVAR)) + 
+      theme_classic() +
+      geom_jitter(aes(alpha=0.2),shape=16) +
+      geom_violin(trim=F, alpha=0.5) +
+      xlab("XLABEL") +
+      ylab("YLABEL") +
+      theme(legend.position="none")
+
+```
+
+Lastly, we can go ahead and add a boxplot geom to highlight our mean, range, etc.
+```{r Violin Plots - Step 4, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+ggplot(data = df, aes(x = XVAR, y = YVAR)) + 
+      theme_classic() +
+      geom_jitter(aes(alpha=0.2),shape=16) +
+      geom_violin(trim=F, alpha=0.5) +
+      xlab("XLABEL") +
+      ylab("YLABEL") +
+      theme(legend.position="none") + 
+      geom_boxplot(width=0.2, color="black", alpha=0.2)
+
+```
+
+Viola! You have a beautiful little violin plot. If we'd like to add a moderator, we can add a few more arguments:
+```{r Violin Plots, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+ggplot(data = df, aes(x = XVAR, y = XVAR, fill=MVAR, color = MVAR)) + 
+      theme_classic()+
+      geom_jitter(aes(alpha=0.2, color=MVAR),shape=16, position=position_jitter(0.2)) + 
+      geom_violin(trim=F, alpha=0.5) +
+      scale_color_brewer(palette = "Dark2") +
+      scale_fill_brewer(palette = "Set3") +
+      xlab("XLABEL") +
+      ylab("YLABEL") +
+      theme(legend.position="none") +
+      geom_boxplot(width=0.2, color="black", alpha=0.2) +  
+      facet_wrap(~MVAR)
+```
+
+## Exercise 2
+
+Let's generate a violin plot to examine how the z-scored emotional intensity variable (Emo.Extent_z) changes when people use different regulation strategies (Strategy), as moderated by which emotion people are feeling at any given time (Emotion). Let's save this variable as an object named plot_violin. We'll be using this plot again later.
+
+```{r r Exercise 2, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise2.R)
+
+# Interactive Visualizations
+
+![**Section 2**](Presentation/Section2.mp4)
+
+Great! So we now have a beautiful violin plot that tells us about people's emotional and regulatory experiences while experiencing a haunted house. Plots can deceptive sometimes though. What exactly is the mean value for any emotion? What is the interquartile range? We get a general idea from a static plot, but we could make the plot more dynamic in order to carry more information. This is where ```plotly``` becomes incredibly useful. 
+
+## Generating Plots
+
+```plotly``` integrates seemlessly with ```ggplot2```, almost to the point that reviewing it in a whole section seems silly. ```plotly``` does have it's own visualization generation toolbox that is very nice, but it also just has a very simple, convenient command called ```ggplotly``` that will convert any ```ggplot``` object into an interactive visualization. Let't try it with our violin plots. NOTE: ```plotly``` does sometimes have issues with RMarkdown, wherein it will generate plots that are not interactive. I generally find that restarting my R session fixes the issue. 
+
+```{r Generating a basic interactive plot}
+  ggplotly(p = plot_violin)
+```
+
+Plotly provides a few interesting functions that I want to point out:
+* You can hover your mouse over any datapoint and see a point out with information relevant about that datapoint. 
+* You can also hover over the violin component to see information relevant to the distribution
+* You can also hover over the boxplot to see information relevant to the mean and IQR
+* In the upper right corner, there are functions to zoom in and out of the plot and pan to view image with greater resolution
+* There are also options to view single datapoints or compare data
+
+For the most part, you will find very little reason to add additional arguments to a ```ggplotly``` plot. We can alter the width and height with those respective arguments. We can also change whether the tickmarks move dynamically with zooming and panning. An argument we might want to alter, though, is ```tooltip```. ```tooltip``` will change what information is displayed during hovering, as well as the order of information that is displayed (i.e., information will be reordered into the sequence listed under ```tooltip```). The default for ```ggplotly``` is to include any variable that we list for a given object, which isn't always helpful.  
+
+## Exercise 3
+
+Let's generate an interactive violin plot where we get output for all of the current variables, excluding "alpha" and "color".
+
+```{r r Exercise 3, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise3.r)
+
+## Saving Plots
+
+What good is a plot if it only exists in R? Luckily, we can export ```plotly``` plots as interactive html widgets using the ```htmlwidgets``` package. 
+
+```{r Saving plotly as an HTML widget}
+setwd(dir_plots)
+saveWidget(ggplotly(p = plot_violin), file="plot_violin_int.html")
+```
+
+There are means of saving these as .PNG files as well using the ```webshot``` package, though, I personally have not had a reason to do so, I hadn't gotten it to work correctly in preparing this tutorial, and I'm not sure that it would retain all of the interactive features ```plotly``` grants it.
+
+# Animated Visualizations
+
+![**Section 3**](Presentation/Section3.mp4)
+
+Another means of making our plots more interesting while also conveying a greater amount of information is by using animation. Unlike interaction, animation might not be very beneficial to all plot types, but whenever we want to demonstrate change over time or across ordered variables, it can be very helpful. One advantage animated plots does have over interactive plots, though, is that they may by useful in a greater number of contexts. It would be difficult to place an interactive plot on a digital poster or presentation and see a major benefit. Animation is just as effective in your presentation as it is almost anywhere else. We're going to use the ```gganimate``` package to generate animated ggplot visualizations.
+
+## Generating Animations
+
+Luckily, ```gganimate``` is also pretty simple to implement. We can simply add a few lines of code to the end of a typical ggplot to note what x and y variables we are animating and which variable is acting as our time variable. 
+
+```{r Creating a gganimate template}
+ggplot(df, aes(x = Emo.Extent_z, y = Reg.Extent_z)) +
+       stat_smooth(method="lm", alpha = .25, size = 2) +
+       theme_classic() +
+       labs(title = 'Event: {frame_time}', x = 'Affective Intensity', y = 'Regulation Effort') +
+       transition_time(as.integer(Event))
+```
+
+It doesn't look super great with the stat_smooth line, but we can pivot to data points and hopefully see a more interesting trend.
+
+## Exercise 4
+
+Let's generate a brand new plot with z-scored affective intensity and regulation effort as the x and y variables respectively. Instead of a regression line, let's use geom points for individual participants and let's alter the size of those points according to how fearful the person was during the haunted house. Event will be the time variable. Lastly, let's save it as an object named plot_anim
+
+```{r r Exercise 4, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise4.r)
+
+## Exporting Animated Plots
+
+To export an animated plot so that it can be inserted or used in a number of places, we can use the ```anim_save``` function to export the visualization as a .gif.
+
+```{r Exporting Animated Plots}
+anim_save("anim_plot.gif", animation = plot_anim)
+```
+
+# Reactive Visualizations 
+
+![**Section 4**](Presentation/Section4.mp4)
+
+Last thing we're going to closely cover today are Shiny applications. Shiny apps are dynamic, interactive applications that we can build in R and host on the web due to a little CSS, HTML, and javascript integration. The possibilities with Shiny Apps are really endless. I used shiny to build an interactive Dungeons & Dragons combat simulator last year and I've seen plenty used to illustrate, calculate, and evaluate plenty of statistical relationships. With some extra coding, Shiny apps can do just about everything we've already covered, but where they rise above and beyond ```plotly``` and ```gganimate``` is their ability to generate *reactive* plots, or plots with knobs we can turn that yield substantive changes in how the data is visualized. Let's just quickly take a very general, very brief overview on the backend of Shiny Apps.
+
+By the end, we're going to want to generate a shiny app that will yield reactive plots based upon which data we want to look at (e.g., only people who reappraised, only people with fear ratings above 3, etc.)
+
+## Generating a Shiny App
+
+Shiny apps consist of two primary components: the *user interface* and the *server*, or in other words, what the people see and the engine operating in the background. The server is relatively easy to understand; it's mostly just an R function or a collection of R functions that we want to execute whenever someone uses our app. The UI, though, is not traditional R code (seems to be an amalgam of codes), but luckily, it's not too hard to get the hang of it. We can start here, with the standard code R will output if you ask it to create a new Shiny Web application:
+
+```{r Backend Shiny Code}
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
+        ),
+
+        # Show a plot of the generated distribution
+        mainPanel(
+           plotOutput("distPlot")
+        )
+    )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+        # draw the histogram with the specified number of bins
+        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    })
+}
+```
+
+As you can see, it's already split into these two sections: server and ui. It's also already commented out with descriptions as to what everything is doing. Lastly, running that code will automatically generate a reactive plot (A histogram that will change number of bins according to user input). 
+
+```{r Running Shiny App}
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
+However, what I want to do over the next few steps is show you how you can customize a shiny app to fit your needs basically by turning a few knobs and diving a little deeper (but barely deeper) into the different components within both UI and the Server.  
+
+### User Interface
+
+Let's focus on the UI first. Notice everything for UI is nested within ```fluidPage()```. ```fluidPage()``` is just a default format that will automatically situate all of the components we place in it in a nice, aesthetically pleasing way. We don't need to focus on that much. Everything else within ```fluidPage()``` is situated by *panels*. We have ```titlePanel()```, ```sidebarPanel()```, and ```mainPanel()```. There's customization options within each of these, but for the most part, we can think of the ```mainPanel()``` as where our visualization will exist, and the ```sidebarPanel()``` as where we'll place our data manipulation options. Notice that the type of information present in any one panel is already split into two groups: Input and Output. Our sidebar accepts *inputs* that will affect the *output* of our main panel. Thinking in terms of input and output is going to be really helpful with developing Shiny Apps, because many of the variables exist in these terms (we'll see more of that in a second when we move on to Server).
+
+```{r UI - Part 1, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30)
+        ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+       plotOutput("distPlot")
+    )
+  )
+)
+```
+
+For now, I just want to point out that the ```sidebarPanel()``` function will accept as many items as we feed it, providing those items are types of inputs and separated by commas. If we wanted to add an dropdown menu input, we could just do this:
+
+```{r UI - Part 2, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:",
+                        min = 1,
+                        max = 50,
+                        value = 30),
+            selectInput(inputId = "dropdownmenu",
+                        label = "Choose an option",
+                        choices = c("Option1", "Option2", "Option3"),
+                        selected = "Option1",
+                        multiple = T)
+        ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+       plotOutput("distPlot")
+    )
+  )
+)
+```
+
+We added the ```selectInput()``` function and you'll also notice I included what each of the arguments refer to so it's easier to follow (the default script skipped out on those). We outline what the variable name is that R can recognize, what the participants will see, what choices they have to choose from, what option is selected as the default, and whether they are allowed to select multiple options, respectively. This of course does nothing at this stage, because we haven't integrated it with the Server. There are plenty of other options to choose from, including ```textInput()``` and ```numericInput()```. We won't cover those closely, but as always, if you don't know what something does, you can always enter "?FUNCTION_NAME" in the terminal and it should show you details in the viewer. There's also this [helpful
+Shiny UI tutorial from the folks at R](https://mastering-shiny.org/basic-ui.html). For now, though, I want to move on to the Server. 
+
+### Server
+
+Much like the UI, the Server can also be thought of in terms of input and output. A server is really just a custom R function (so you are indirectly learning how to write your own custom R functions, too, if you don't already know that!). 
+
+```{r Server - Part1, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderPlot({
+        # generate bins based on input$bins from ui.R
+        x    <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+        # draw the histogram with the specified number of bins
+        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    })
+}
+```
+
+All of the various inputs from the UI get packaged together into a matrix of sorts and fed to the Server under the name *input*, so in order to utilize any variable from the UI, we need to reference the matrix and then the variable name. You can see exactly that when we define the *bins* variable.
+
+```{r Server - Part2, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+
+# We reference input$bins instead of just bins
+bins <- seq(min(x), max(x), length.out = input$bins + 1) 
+
+```
+
+Also notice that all of the stuff that we'd consider to be pretty standard R functions and syntax are captured within this ```renderPlot``` argument which defines *output$disPlot*. If you think back to the UI, *distPlot* is what we were placing in our main panel, so ```renderPlot()``` just puts together the plot in a way that the UI can present it. 
+
+## Building Our Own Reactive Plot
+
+So trying to synthesize all of this information in a very short amount of time, if we were to want to create a reactive shiny plot that examined the relationship between XVAR and YVAR depending upon moderating a qualitative variable MVAR1, it might look something like this:
+
+```{r Shiny Code Template, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+# Define UI for application that produces a linear model plot
+ui <- fluidPage(
+  
+  # Application title
+  titlePanel("TITLE"),
+  
+  # Sidebar with a slider input for moderating variables
+  sidebarLayout(
+    sidebarPanel(
+      
+      # Panel for MVAR
+      selectInput(inputId = "MVAR1",
+                  label = "MVAR1_NAME:",
+                  choices = c("OPTION1", "OPTION2", "OPTION3", "ALL_OPTIONS"),
+                  selected = "ALL_OPTIONS",
+                  multiple = F)
+    ),
+    
+    # Show a plot of the generated visualization
+    mainPanel(
+      plotOutput("PLOT_NAME")
+    )
+  )
+)
+
+# Define server logic required to draw visualization
+server <- function(input, output) {
+  
+  # Creating the plot output
+  output$PLOT_NAME <- renderPlot({
+    
+    # Creating a temporary dataframe we can modify reactively
+    DF_TEMP <- DF
+    
+    # Subsetting MVAR1 if we don't want all options
+    if (input$MVAR1 != "ALL_OPTIONS"){
+      DF_TEMP <- subset(DF_TEMP, DF_TEMP$MVAR1 %in% input$MVAR1)
+    }
+
+    # Specifying our ggplot output
+    ggplot(data = DF_TEMP, aes(x = XVAR, y = YVAR, color = MVAR1)) +
+      geom_point() +
+      stat_smooth(method="lm", alpha = .25, size = 2) +
+      scale_color_brewer(palette = "Dark2") +
+      labs(title = "PLOT_TITLE",
+           subtitle = "PLOT_SUBTITLE",
+           x = "XVAR_LABEL",
+           y ="YVAR_LABEL",
+           caption = NULL) +
+      coord_cartesian(xlim=c(-1.8, 1.8), ylim=c(-1.8, 1.8)) +
+      theme_classic() +
+      theme(plot.title = element_text(face="bold", size=13, hjust = 0.5)) +
+      theme(plot.subtitle = element_text(size = 10, hjust = 0.5, face = "italic")) +
+      theme(plot.caption = element_text(size = 8, hjust = 0.0, face = "italic")) +
+      theme(axis.title = element_text(size = 16)) +
+      theme(axis.text.x = element_text(size = 14, color = "Black")) +
+      theme(axis.text.y = element_text(size = 14, color = "Black"))
+  })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
+It looks like quite a lot, but we can break it down by sections again. For the UI, you'll notice we only have a single sidebar panel for our moderator, MVAR1. We give it an ID, a label, and we specify the choices. We can imagine that there are three choices one can choose from, with a final choice to include all possible choices. We use that as the default value, and we turn off the ability to select multiple options (because that will complicate things much more than we have time for). Everything else is pretty standard.
+
+```{r UI Template, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+# Define UI for application that produces a linear model plot
+ui <- fluidPage(
+  
+  # Application title
+  titlePanel("TITLE"),
+  
+  # Sidebar with a slider input for moderating variables
+  sidebarLayout(
+    sidebarPanel(
+      
+      # Panel for MVAR
+      selectInput(inputId = "MVAR1",
+                  label = "MVAR1_NAME:",
+                  choices = c("OPTION1", "OPTION2", "OPTION3", "ALL_OPTIONS"),
+                  selected = "ALL_OPTIONS",
+                  multiple = F)
+    ),
+    
+    # Show a plot of the generated visualization
+    mainPanel(
+      plotOutput("PLOT_NAME")
+    )
+  )
+)
+```
+
+Moving on to the second component, things look a little more complex, but they really aren't; just some rather verbose R functions. Within the renderPlot function, we start by creating a temporary dataframe which we can manipulate and overwrite as needed when we change our sidebar input. We then tell R, "If the user doesn't want all of the options, subset the ones they do want from the input$MVAR1 variable. Then all we're doing is specifying our ggplot. We could certainly be more concise in our ggplot specifications, but this customizes just about everything that I usually tend to care about in a regression plot. 
+
+```{r Server Template, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
+# Define server logic required to draw visualization
+server <- function(input, output) {
+  
+  # Creating the plot output
+  output$PLOT_NAME <- renderPlot({
+    
+    # Creating a temporary dataframe we can modify reactively
+    DF_TEMP <- DF
+    
+    # Subsetting MVAR1 if we don't want all options
+    if (input$MVAR1 != "ALL_OPTIONS"){
+      DF_TEMP <- subset(DF_TEMP, DF_TEMP$MVAR1 %in% input$MVAR1)
+    }
+
+    # Specifying our ggplot output
+    ggplot(data = DF_TEMP, aes(x = XVAR, y = YVAR, color = MVAR1)) +
+      geom_point() +
+      stat_smooth(method="lm", alpha = .25, size = 2) +
+      scale_color_brewer(palette = "Dark2") +
+      labs(title = "PLOT_TITLE",
+           subtitle = "PLOT_SUBTITLE",
+           x = "XVAR_LABEL",
+           y ="YVAR_LABEL",
+           caption = NULL) +
+      coord_cartesian(xlim=c(-1.8, 1.8), ylim=c(-1.8, 1.8)) +
+      theme_classic() +
+      theme(plot.title = element_text(face="bold", size=13, hjust = 0.5)) +
+      theme(plot.subtitle = element_text(size = 10, hjust = 0.5, face = "italic")) +
+      theme(plot.caption = element_text(size = 8, hjust = 0.0, face = "italic")) +
+      theme(axis.title = element_text(size = 16)) +
+      theme(axis.text.x = element_text(size = 14, color = "Black")) +
+      theme(axis.text.y = element_text(size = 14, color = "Black"))
+  })
+}
+```
+
+The great thing is that we can pretty much continue to add new side panels endlessly that modulate and morph the ggplot following this formula. By just adding a new ```selectInput()``` function for the variable we care about in the UI, and adding a new ```subset()``` argument within the server, we can continue to add granularity and control over our plots. 
+
+## Exercise 5
+
+Let's try creating a plot like we had above using the Fright Night data. We're going to want to use the z-scored emotional intensity and regulation effort scores as our X and Y variables, respectively. Then we're going to want to use the unique emotions as the different options for our moderator variable with a choice to select all emotions included. (HINT: the ```unique()``` function might be helpful in figuring out what choices to include for emotion)
+
+```{r r Exercise 5, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise5.r)
+
+## Exercise 6
+
+Building off of last exercise, let's make the exact same plot, but now with the added input from the *Fear_During* variable. Allow users to select any of the five levels as well as an option to select all of the levels. (HINT: It might be easiest to structure the choices as strings first, and then reclassify them as numeric variables within the server).
+
+```{r r Exercise 6, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise6.r)
+
+## Exercise 7
+
+Alright, for the final exercise, let's really kick things up a notch by adding yet another varible. Add a new ```selectInput()``` in the side panel to choose which regulation strategies to include in the plot. Include options for distraction, reappraisal, and both. 
+
+```{r r Exercise 7, code="'\n\n\n\n'", results=F}
+
+```
+
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise7.r)
+
+# Conclusion
+
+![**Concluding Remarks**](Presentation/Conclusion.mp4)
+
+**Congrats!** You made it through a long and somewhat difficult and you probably a better person academically, socially, morally, and spiritually for it.  
+
+![**PICTURED: You, on your way to success**](images/conclusion.png)
+
+Unfortunately, we don't have a lot of time in these workshops to cover these topics in a really in-depth way (we didn't even get to talk about the **[esquisse package](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html)**!! ), but my hope is that I've provided you with some templates that can get you started on exploring visualizations options. The limitations are really up to you and your imagination. The internet is chock full of people doing really cool things with these functions. They pop up very frequently on the [r/dataisbeautiful subreddit](https://www.reddit.com/r/dataisbeautiful/) (in fact, I counted 13 of the top 25 most upvoted posts over the past year used ```gganimate``` or similar animation packages) and the [R Graph Gallery](https://r-graph-gallery.com/index.html) has gorgeous examples and tutorials for nearly every single type of plot you can imagine, so you certainly aren't at a loss for directions to take with this workshop knowledge. With science communication becoming increasingly digital, I really see no reason why we shouldn't be taking advantage of the benefits digitized visualizations can bring, and hopefully now, they seem more approachable for you! 
+
+
+Hopefully this was more *encouraging* than *discouraging*, but should you find yourself more on the discouraged side, don't hesitate to shoot me an email (billy.mitchell@temple.edu). Happy to help, and thanks for sticking with it.
+
