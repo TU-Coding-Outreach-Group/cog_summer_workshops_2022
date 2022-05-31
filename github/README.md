@@ -36,7 +36,7 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 
 ### Workshop Materials
 
-- [Notebook Viewer]()
+- [Notebook Viewer](github/index.html)
 
 ### Outline
 
