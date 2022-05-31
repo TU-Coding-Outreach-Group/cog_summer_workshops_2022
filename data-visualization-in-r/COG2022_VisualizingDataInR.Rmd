@@ -11,25 +11,26 @@ output:
     toc_float: 
       collapsed: false
     df_print: paged
-    css: !expr here::here("./style_bootcamp.css")
+    css: !expr here::here("misc/style_bootcamp.css")
 knit: (function(inputFile, encoding) { 
       out_dir <- './';
       rmarkdown::render(inputFile,
                         encoding=encoding, 
                         output_file=file.path(dirname(inputFile), out_dir, 'index.html')) })
+runtime: shiny
 ---
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-# Introduction
+## Introduction
 
-![**Introduction Video**](Presentation/Introduction.mp4)
+![**Introduction Video**](Presentations/Introduction.mp4)
 
 Today we will be be creating dynamic, interactive visualizations as a means of representing underlying quantitative and qualitative trends in a pre-existing (albeit, heavily altered) dataset. This data has already been formatted and cleaned to facilitate visualizations. We will **not** be reviewing how to wrangle this data or hypothesis test this data today. This was covered during our 2021 bootcamp, which can be [accessed on our github](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/R). We also won't really be focusing on basic ggplot visualizations for this data today. This was covered in our 2020 and 2021 summer workshops, which can also be [accessed on our github](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/data-visualization-in-r). This workshop builds upon previous workshops to demonstrate how to generate advanced, creative plots appropriate for both academic and industry presentations. Luckily, many of the resources to generate these plots are pretty user-friendly, so it's not a very code-heavy workshop, but it does necessitate comfortability with ggplot and intermediate R syntax.
 
-# Loading Packages
+## Loading Packages
 
 Let's get started by first loading the packages that we're going to need in this workshop. I'm very fond of the ```pacman``` package, which contains this nifty ```p_load``` function. ```p_load``` should accept the names of all of the packages that we want to use. Any packages listed will be downloaded if you don't already have them, updated if they are out of date, and loaded into our environment. This is the basic format:
 
@@ -58,9 +59,7 @@ We're going to start with something easy. Install and load the following package
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise1.R)
 
 
-# Loading Data
-
-![**Setup Video**](Presentation/Setup.mp4)
+## Loading Data
 
 Next, we'll specify the working directory that we'll be storing the plots that we generate within. This should change from person to person. NOTE: I will try to consistently use **ALL CAPS** letters to indicate when you should be replacing my text with text specific to you or text specific to a certain exercise. Think of **ALL CAPS** text as placeholders for you to alter.
 ```{r Setting Working Directory, eval=FALSE, include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
@@ -75,7 +74,7 @@ Lastly, we're going to load dataframe. I've saved this file as an R dataframe, w
 
 Now that setup is done, let's begin!
 
-# A Quick Primer on the Data
+## A Quick Primer on the Data
 
 This is a subset of deidentified data from the SAN & AML lab's 2019 haunted house study, wherein participants were asked to traverse Eastern State Penitentiary in groups of 3 to 5 people and then report on their memories, affective experiences, and regulatory behavior. Participants (PID) reported on 10 chronologically-ordered events (Events) that occurred within the house to which they had a significant emotional reaction. Participants identified which emotions they experienced ("Emotion"), how intense those emotions were ("Emo.Extent"), and how much effort they put into regulating those emotions ("Reg.Extent"). Other factors include summary statistics for depression ("BDI"), anxiety ("STAI"), regulation tendencies ("ERQ"), uncertainty tolerance ("IUS"), and general fear levels in the haunted house ("Fear_During").
 
@@ -83,7 +82,7 @@ This is a subset of deidentified data from the SAN & AML lab's 2019 haunted hous
 
 # Data Distribution
 
-![**Section 1**](Presentation/Section1.mp4)
+![**Section 1**](Presentations/Section1.mp4)
 
 As I had mentioned earlier, we can generally assume that this dataset is ideally structured for generating visualizations, so we won't be covering basic visualizations like histograms or qqplots. Those were covered extensively in previous workshops. However, there are a few neat tricks that were not covered in the past workshop that I wanted to share today. 
 
@@ -204,7 +203,7 @@ Let's generate a violin plot to examine how the z-scored emotional intensity var
 
 # Interactive Visualizations
 
-![**Section 2**](Presentation/Section2.mp4)
+![**Section 2**](Presentations/Section2.mp4)
 
 Great! So we now have a beautiful violin plot that tells us about people's emotional and regulatory experiences while experiencing a haunted house. Plots can deceptive sometimes though. What exactly is the mean value for any emotion? What is the interquartile range? We get a general idea from a static plot, but we could make the plot more dynamic in order to carry more information. This is where ```plotly``` becomes incredibly useful. 
 
@@ -248,7 +247,7 @@ There are means of saving these as .PNG files as well using the ```webshot``` pa
 
 # Animated Visualizations
 
-![**Section 3**](Presentation/Section3.mp4)
+![**Section 3**](Presentations/Section3.mp4)
 
 Another means of making our plots more interesting while also conveying a greater amount of information is by using animation. Unlike interaction, animation might not be very beneficial to all plot types, but whenever we want to demonstrate change over time or across ordered variables, it can be very helpful. One advantage animated plots does have over interactive plots, though, is that they may by useful in a greater number of contexts. It would be difficult to place an interactive plot on a digital poster or presentation and see a major benefit. Animation is just as effective in your presentation as it is almost anywhere else. We're going to use the ```gganimate``` package to generate animated ggplot visualizations.
 
@@ -286,7 +285,7 @@ anim_save("anim_plot.gif", animation = plot_anim)
 
 # Reactive Visualizations 
 
-![**Section 4**](Presentation/Section4.mp4)
+![**Section 4**](Presentations/Section4.mp4)
 
 Last thing we're going to closely cover today are Shiny applications. Shiny apps are dynamic, interactive applications that we can build in R and host on the web due to a little CSS, HTML, and javascript integration. The possibilities with Shiny Apps are really endless. I used shiny to build an interactive Dungeons & Dragons combat simulator last year and I've seen plenty used to illustrate, calculate, and evaluate plenty of statistical relationships. With some extra coding, Shiny apps can do just about everything we've already covered, but where they rise above and beyond ```plotly``` and ```gganimate``` is their ability to generate *reactive* plots, or plots with knobs we can turn that yield substantive changes in how the data is visualized. Let's just quickly take a very general, very brief overview on the backend of Shiny Apps.
 
@@ -336,10 +335,16 @@ server <- function(input, output) {
 
 As you can see, it's already split into these two sections: server and ui. It's also already commented out with descriptions as to what everything is doing. Lastly, running that code will automatically generate a reactive plot (A histogram that will change number of bins according to user input). 
 
-```{r Running Shiny App}
+NOTE: Unfortunately, Shiny apps don't work with markdown documents, so I can't insert one that works here, but running the above and below code on your own computer should generate a pop up window wherein you can create a reactive histogram
+
+```{r Running Shiny App, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
 # Run the application 
 shinyApp(ui = ui, server = server)
 ```
+
+![**Shiny App Example w/ 5 bins**](images/ShinyApp_05bins.PNG)
+
+![**Shiny App Example w/ 25 bins**](images/ShinyApp_25bins.PNG)
 
 However, what I want to do over the next few steps is show you how you can customize a shiny app to fit your needs basically by turning a few knobs and diving a little deeper (but barely deeper) into the different components within both UI and the Server.  
 
@@ -606,9 +611,10 @@ Alright, for the final exercise, let's really kick things up a notch by adding y
 
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise7.r)
 
+
 # Conclusion
 
-![**Concluding Remarks**](Presentation/Conclusion.mp4)
+![**Concluding Remarks**](Presentations/Conclusion.mp4)
 
 **Congrats!** You made it through a long and somewhat difficult and you probably a better person academically, socially, morally, and spiritually for it.  
 
