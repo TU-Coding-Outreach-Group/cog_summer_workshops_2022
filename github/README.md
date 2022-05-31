@@ -36,7 +36,7 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 
 ### Workshop Materials
 
-- [Notebook Viewer](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/github/index.html)
+- [Notebook Viewer](https://github.com/TU-Coding-Outreach-Grouphttps://tu-coding-outreach-group.github.io)/cog_summer_workshops_2022/blob/main/github/index.html)
 
 ### Outline
 
