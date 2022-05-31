@@ -1,8 +1,6 @@
 # Coding Outreach Group Summer Workshop
 # Git/Github Pages
-05/01/2022
-
-*** UNDER CONSTRUCTION ***
+06/01/2022
 
 __**Content creator:**__ Katie Jobson
 
@@ -61,8 +59,8 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 
 ### Thanks to all of our participants:
 
-![Image 1](/images/image1.png)
-![Image 2](/images/image2.png)
-![Image 3](/images/image3.png)
-![Image 4](/images/image4.png)
-![Image 5](/images/image5.png)
+![Image 1](images/image1.png)
+![Image 2](images/image2.png)
+![Image 3](images/image3.png)
+![Image 4](images/image4.png)
+![Image 5](images/image5.png)
