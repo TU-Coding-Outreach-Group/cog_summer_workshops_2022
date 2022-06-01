@@ -1,70 +1,72 @@
 # Coding Outreach Group Summer Workshop
-# Data Wrangling in R
-07/15/2021
+# Data Visualization in R
+06/07/2022
 
-__**Content creator:**__ Billy Mitchell
-
-__**Content creator:**__ 
-
-**WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
+__**Content creator:**__ Ginny Ulichney
 
 ## Description
-Representational similarity analysis (RSA) is a newer analytic technique that can be used for both neural and behavioral data and is great for exploring high-dimensional data or comparing data across different modalities.
+This workshop will cover some basic and intermediate data wrangling functions in R using the Tidyverse package (primarily tidyr and dplyr). The workshop will focus on practical and concise data organization. We will start with a walk-through of common data organization functions, discuss more efficient wrangling using piping, and finally, apply practical organization skills to some exercises. The goal of this workshop is to equip attendees with the skills to transform raw data into organized, analysis-ready data.
 
 ## Prerequisites
-1. Comfort coding in python
-2. Familiarity with file path structures
-3. Faimilarity with general neuroimaging analysis concepts
+This workshop requires that users: 
+1. have the R programming language downloaded, which can be accessed here:(<https://archive.linux.duke.edu/cran/>) 
+2. have the R Studio user interface downloaded, which can be accessed here:(<https://www.rstudio.com/products/rstudio/download/#download>) 
+3. have a basic familiarity with the R programming language basics, specifically (see resources below): 
+  * installing packages and loading libraries 
+  * [data structures and objects in R](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)  
+  * basic understanding of R syntax: 
+    * [codecademy R course](https://www.codecademy.com/learn/learn-r)
+    * [Python and R for Data Science](https://www.anotherbookondatascience.com)
+    * [R for Data Science](https://r4ds.had.co.nz)
+    * [Introduction to Data Exploration and Analysis with R](https://bookdown.org/mikemahoney218/IDEAR/)
+
+## What we won't cover
+It is worth noting that this workshop will focus on wrangling data using a Tidy framework, although there are certainly other methods that can be used to achieve similar results (e.g., Base R). We also unfortunately will not have time to discuss the details of Natural Language Processing nor the other statistical analyses discussed. For example, we will discuss how to wrangle data into the format one might need to run a few basic analyses to put wrangling skills into context (t-tests and linear regression), but we will not discuss the statistical underpinnings of these analyses nor deeply unpack their results.
 
 ## Set Up (do before the workshop)
-1. Make sure you've installed the following python packages:
-    - [nltools](https://nltools.org/install.html) in a python 3 environment. `pip install nltools`
-2. Make sure you have a python 2 and a python 3 environment.
-    - Instructions on how to [set up environments with anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/switch-environment/).
-    - [nltools](https://nltools.org/install.html) 
-    - We will be using the nltools package to create and visual RDMs, and complete a region of interest RSA.
-3. Install [pymvpa](pymvpa.org/installation.html) in a python 2 environment.
+1.  Download the R-markdown script from Github
+2.  Download the data used in the workshop
     
 ## Workshop objectives:
-1. Introduce the basic framework of representational similarity analysis 
-2. Demonstrate how to create representational dissimilarity matrices from models, behavioral data, and neuroimaging data
-3. Demonstrate RSA with a region of interest approach
-
-## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/rsa/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/blob/main/rsa/rsa_intro-COG2021.pdf)
+1. To demonstrate best practice when cleaning messy raw data
+2. To highlight some helpful tools R offers when analyzing data
+3. To develop proficiency in conceptualizing data structure
 
 ## Outline
-| Topic | Time | Description |
+| Section | Description | Time |
 | --- | --- | --- |
-| Intro | Why use RSA? | 5 min |
-| Tutorial 1 | ROI RSA | 30 min |
-| Tutorial 2 | Searchlight RSA (coming soon) | 15 min |
-| Tutorial 3 | Significance Testing (coming soon) | 10 min |
-| Outro | RSA with multi-dimensional data | 5 min |
+| Intro | Why is data wrangling important? | 05 min |
+| Setup | Loading packages, data, and background | 05 min |
+| Section 1 | Exploring, renaming, and filtering data | 25 min |
+| Section 2 | Mutating data, merging dataframes, exporting data | 30 min |
+| Q & A | --- | 25 min |
 
 ## Additional Resources
-*** UNDER CONSTRUCTION ***
-
-### Literature
-- [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
-    - The original paper that introduced RSA
-- [Popal et al., 2019](https://academic.oup.com/scan/article/14/11/1243/5693905)
-    - An RSA how-to and why-to guide aimed for the social neuroscience community
-- [Dimsdale-Zucker & Ranganath, 2018](http://hrz-website.s3.amazonaws.com/papers/dimsdale-zucker_ranganath_2018_published-chapter.pdf)
-    - An in-depth RSA guide aimed for memory researchers
+Supplemental information can be found within the [supplements folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-wrangling-in-r/supplements/) and includes:
+* A Base R Cheat Sheet
+* A Data wrangling Cheat Sheet
+* A Strings Cheat Sheet
+* A ```tidyr``` Cheat Sheet
 
 ### Packages
-- [Dartbrains](https://dartbrains.org/content/RSA.html)
-    - Excellent tutorial. Much of the code in this workshop was adapted from this resource.
-    - Uses the nltools package
-- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html)
-    - Includes searchlight analysis
-- [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
-- [NeuroRA](https://neurora.github.io/NeuroRA/)
+* ```data.table``` - [for reading large data objects](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+* ```lme4``` - [crucial for linear modeling](https://cran.r-project.org/web/packages/lme4/index.html)
+* ```lubridate``` - [important for updating date and time strings](https://lubridate.tidyverse.org/)
+* ```modelsummary``` - [important for R notebook functionality](https://vincentarelbundock.github.io/modelsummary/index.html)
+* ```psych``` - [basic statistical functions](https://cran.r-project.org/web/packages/psych/index.html)
+* ```qdap``` - [invovled in text analysis and text cleaning](https://cran.r-project.org/web/packages/qdap/index.html)
+* ```reshape``` - [a basic data wrangling package](https://cran.r-project.org/web/packages/reshape/reshape.pdf)
+* ```rJava``` - [invovled in text analysis and text cleaning](https://cran.r-project.org/web/packages/rJava/index.html)
+* ```rlang``` - [a basic data wrangling package](https://rlang.r-lib.org/)
+* ```skimr``` - [basic statistical functions with creative visualizations](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html)
+* ```syuzhet``` - [invovled in text analysis and text cleaning](https://cran.r-project.org/web/packages/syuzhet/vignettes/syuzhet-vignette.html)
+* ```tidytext``` - [invovled in text analysis and text cleaning](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html)
+* ```tidyverse``` - [a collection of packages that are always incredibly helpful no matter what project you're working on](https://www.tidyverse.org/packages/)
+* ```utils``` - [important for R notebook functionality](https://cran.r-project.org/web/packages/R.utils/index.html)
+* ```yaml``` - [important for R notebook functionality](https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-overview.html)
+
 
 ### Other Workshops
-- [Mark Thornton's RSA workshop](https://colab.research.google.com/drive/1UEtFr-oJisRzl8BmzbNdMZZ7-Of0gLcH?usp=sharing) for Society for Social Neuroscience 2021
-- [MIND 2018 RSA workshop](https://github.com/markallenthornton/mind_2018/tree/master/tutorials/representational_similarity) in R
+- COG 2021 [Intro to Coding in R](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/R) workshop by Billy Mitchell
 
 
