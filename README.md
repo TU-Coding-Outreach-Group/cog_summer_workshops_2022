@@ -6,7 +6,7 @@ The Coding Outreach Group (COG) weekly summer workshops focus on a specific rese
 Workshops are on Wednesdays in June and July from 1:30pm to 3:00pm
 | Date        | Workshop                             | Presenter  |
 | :-----------: |:------------------------------------:| :-----------:|
-| 6/1    | [Git/Github Website](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/github)                       | Katie Jobson |
+| 6/1    | [Git/GitHub Pages](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/github)                       | Katie Jobson |
 | 6/8    | [Data Wrangling in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r)                             | Ginny Ulichney |
 | 6/15    | [Data Visualization in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r)      | Billy Mitchell |
 | 6/22    | [Neuroimaging in Python](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/neuroimaging-in-python) | Kim Nguyen |                          
