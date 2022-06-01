@@ -12,7 +12,7 @@ This workshop aims to cover the basics of GitHub, and will give a tutorial on ho
 
 ### Prerequisites
 
-1. Basic knowledge of bash scripting. 
+1. Basic knowledge of bash scripting and Markdown. 
 2. A picture of your lab logo (or your animal) in **PNG** format
 
 
