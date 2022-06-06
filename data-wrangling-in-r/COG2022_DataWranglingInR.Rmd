@@ -40,7 +40,7 @@ options(yaml.eval.expr = TRUE)
 I'm first going to load the couple of packages that we will need for this workshop. I've included a little bit of information about each of their uses in a comment below. Running the code chunk below will load the desired packages if you have already installed them, and the nice thing is, it will also automatically install any needed packages if you have not yet done so. Basically, this is possible through creating an object containing the names of the desired packages ("wrangling_packages"), creating an object containing the names of your existing packages ("packages"), and using a function to install any package names that are listed among the desired packages, but not among existing packages.
 
 ```{r Packages, message=F, warning=F}
-wrangling_packages <- c("data.table", "lme4", "lubridate", "modelsummary", 
+wrangling_packages <- c("data.table", "effects", "lme4", "lubridate", "modelsummary", 
                         "psych", "qdap", "reshape", "rJava", "rlang", "skimr", 
                         "syuzhet", "tidytext", "tidyverse", "utils", "yaml")
 
@@ -64,13 +64,22 @@ if(length(p_to_install) > 0){
 lapply(wrangling_packages, library, character.only = TRUE)
 ```
 
-We're next going to specify the working directory to wherever you have this workshop stored locally.
+Now let's clean our environment of the variables we won't need 
+```{r Removing Unnecessary Variables}
+rm(p_to_install, packages, wrangling_packages)
+```
 
+We're next going to specify the working directory to wherever you have this workshop stored locally.
 ```{r Setwd, eval = FALSE, include = TRUE}
 #check current working directory
 getwd()
+
+#change the directory to where you have the COG2022_DataWranglinginR.csv saved
 wd <- "YOUR/PATH/HERE"
 setwd(wd)
+
+#we won't be using the variable wd any longer
+rm(wd)
 ```
 
 ```{r Setwd - Hidden, eval = TRUE, include = FALSE}
@@ -78,8 +87,11 @@ setwd(wd)
 getwd()
 
 #change the directory to where you have the COG2022_DataWranglinginR.csv saved
-wd <- "C:/Users/tui81100/Documents/GitHub/cog_summer_workshops_2022/data-wrangling-in-r/"
+wd <- "C:/Users/Wjpmi/Documents/GitHub/cog_summer_workshops_2022/data-wrangling-in-r/"
 setwd(wd)
+
+#we won't be using the variable wd any longer
+rm(wd)
 ```
 
 ## About the data
@@ -90,14 +102,14 @@ For this workshop, we will be using publicly-available New York Times Cooking co
 
 ## Step 1: Import raw data
 
-We're first going to import the New York Times Cooking comment data as a dataframe. There are a few ways to do this that we'll go through. You can use the "read.csv" function from the ```utils``` package, which is likely the most common way to load .csv data. However, You can also use the ```fread``` function from the ```data.table``` package, which is much better for datasets of this size, as we'll see (thank you Billy for introducing me to this one)!
-
-We're going to save the raw data to a dataframe called "nyt_raw", which we can access anytime we need the raw data going forward. To get a sense of our data structure, we'll use the ```head``` function to show a snippet of the first few rows of the dataframe (6 rows by default). We can adjust the number of rows shown with the ```n = 20``` command within the head function.
+We're first going to import the New York Times Cooking comment data as a dataframe. There are a few ways to do this that we'll go through. You can use the "read.csv" function from the ```utils``` package, which is likely the most common way to load .csv data. However, You can also use the ```fread``` function from the ```data.table``` package, which is much better for datasets of this size, as we'll see (thank you Billy for introducing me to this one)! Note that we first list the package that it's from followed by two colons and then the function. This is to let R know where to find the function. This usually isn't necessary, but doing this will allow you to call a function without necessarily loading it into our environment with ```library()``` or, as in our case, resolve issues between packages when two packages have a similarly named function. It just tells R which package we want R to pull *Function X* from.
 
 ```{r Import}
-nyt_raw <- fread("df.csv", 
+nyt_raw <- data.table::fread("df.csv", 
                  na.strings = c('', 'NA'))
 ```
+
+We're going to save the raw data to a dataframe called "nyt_raw", which we can access anytime we need the raw data going forward. To get a sense of our data structure, we'll use the ```head``` function to show a snippet of the first few rows of the dataframe (6 rows by default). We can adjust the number of rows shown with the ```n = 20``` command within the head function.
 
 ```{r Checking Imported Data}
 head(nyt_raw, n = 20) #this will show a snippet of the first 20 rows of the data file
@@ -141,43 +153,60 @@ Based on the New York Times Cooking API and the data source on Kaggle, it looks 
 ## Examining raw data structure
 
 We will now explore our dataset using a couple of Base R commands.
-```{r Structure & Names}
+
+```{r Copying the dataframe to a new object}
 #copying the data to a new object so that we can retain the raw data separately
 nyt <- nyt_raw
+```
 
-#first, we're going to get a sense of the data using a couple of basic Base R commands.
+First, we're going to get a sense of the data using a couple of basic Base R commands. This will tell us about the structure of the dataset, or the way in which R categorizes each of the variables (i.e., numeric, character, etc.). This is important to keep in mind because R will treat variables differently based upon how they are structured.
+
+```{r Checking Structure of dataframe}
 str(nyt) #shows us what kinds of variables we have
+```
+
+Next, we'll use the ```names()``` function to examine the column names of our dataframe, which essentially function as the names of our variables. 
+
+```{r Checking column names of dataframe}
 names(nyt) #shows column names
 ```
 
-```{r Frequency Tables}
-#number of occurrences of each item in a column
+We can look at how frequently each unique value appeared within any given column using the ```tables()``` function and specifying the column as the object of the function. Let's look at how many replies each entry got.
+
+```{r Frequency Table of Replies}
 table(nyt$replyCount)
+```
+
+We can also use it with qualitative variables like recipe names.
+
+```{r Frequency Table of Recipes}
 table(nyt$recipe_name)
 ```
 
+. . . and we can clean this table up a little bit by converting it into a dataframe
 ```{r Improved Frequency Tables}
-#number of occurrences of each item in a column in a nicer table format
-n_occur.recipe_name <- data.frame(table(nyt$recipe_name))
-head(n_occur.recipe_name)
+data.frame(table(nyt$recipe_name))
 ```
 
+Next, we can get descriptive statistics for individual numeric variables.
+
 ```{r Descriptive Statistics}
-#get descriptive statistics for individual numeric variables
 mean(nyt$replyCount)
 sd(nyt$replyCount)
 ```
 
+We can also use visualizations to understand our variables of interest.
+
 ```{r QA Visualizations}
-#basic plots
 hist(nyt$replyCount)
 plot(nyt$replyCount)
 
 ```
 
-This could clearly become a lengthy process depending on the number of variables you're looking at! Here are a few commands to make data exploration more concise:
+Checking our data for quality assurance could clearly become a lengthy process depending on the number of variables you're looking at! Here are a few commands to make data exploration more concise:
 
 NOTE: The ```datasummary_skim``` function output may appear empty in Markdown, but text is just white and can be seen if highlighted.
+
 ```{r Data Summary Functions}
 #skim the entire dataframe using the skimr package
 skim(nyt)
@@ -236,7 +265,9 @@ nrow(nyt) #looks like we didn't lose any rows, so they all were "approved"!
 
 #select by column: this will allow us to choose only columns we'll need for the rest of our analyses
 names(nyt)
-nyt <- dplyr::select(nyt, c('commentID', 'commentBody', 'createDate', 'recommendations', 'recipeName', 'recipeID', 'replyCount', 'authorID', 'status'))
+nyt <- dplyr::select(nyt, c('commentID', 'commentBody', 'createDate', 
+                            'recommendations', 'recipeName', 'recipeID', 
+                            'replyCount', 'authorID', 'status'))
 
 #remove an additional column
 nyt <- dplyr::select(nyt, -c('status'))
