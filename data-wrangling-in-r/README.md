@@ -1,8 +1,9 @@
 # Coding Outreach Group Summer Workshop
 # Data Visualization in R
-06/07/2022
+06/08/2022
 
 __**Content creator:**__ Ginny Ulichney
+__**Content editor:**__ Billy Mitchell
 
 ## Description
 This workshop will cover some basic and intermediate data wrangling functions in R using the Tidyverse package (primarily tidyr and dplyr). The workshop will focus on practical and concise data organization. We will start with a walk-through of common data organization functions, discuss more efficient wrangling using piping, and finally, apply practical organization skills to some exercises. The goal of this workshop is to equip attendees with the skills to transform raw data into organized, analysis-ready data.
@@ -26,6 +27,7 @@ It is worth noting that this workshop will focus on wrangling data using a Tidy 
 ## Set Up (do before the workshop)
 1.  Download the R-markdown script from Github
 2.  Download the data used in the workshop
+3.  Download the packages required for the workshop
     
 ## Workshop objectives:
 1. To demonstrate best practice when cleaning messy raw data
@@ -37,8 +39,9 @@ It is worth noting that this workshop will focus on wrangling data using a Tidy 
 | --- | --- | --- |
 | Intro | Why is data wrangling important? | 05 min |
 | Setup | Loading packages, data, and background | 05 min |
-| Section 1 | Exploring, renaming, and filtering data | 25 min |
-| Section 2 | Mutating data, merging dataframes, exporting data | 30 min |
+| Section 1 | Exploring, renaming, and filtering data | 15 min |
+| Section 2 | Mutating data, merging dataframes, exporting data | 15 min |
+| Section 3 | Application | 25 min |
 | Q & A | --- | 25 min |
 
 ## Additional Resources
@@ -50,6 +53,7 @@ Supplemental information can be found within the [supplements folder](https://gi
 
 ### Packages
 * ```data.table``` - [for reading large data objects](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
+* ```effects``` - [helpful means of visualizing modeled data](https://cran.r-project.org/web/packages/effects/effects.pdf)
 * ```lme4``` - [crucial for linear modeling](https://cran.r-project.org/web/packages/lme4/index.html)
 * ```lubridate``` - [important for updating date and time strings](https://lubridate.tidyverse.org/)
 * ```modelsummary``` - [important for R notebook functionality](https://vincentarelbundock.github.io/modelsummary/index.html)
@@ -68,5 +72,6 @@ Supplemental information can be found within the [supplements folder](https://gi
 
 ### Other Workshops
 - COG 2021 [Intro to Coding in R](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/R) workshop by Billy Mitchell
+- COG 2021 [Intro to Coding in Python](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/python) workshop by Katie Jobson
 
 

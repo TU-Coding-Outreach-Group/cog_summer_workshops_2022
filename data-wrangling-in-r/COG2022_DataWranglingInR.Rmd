@@ -2,7 +2,8 @@
 title: "Coding Outreach Group Summer Workshop - Data Wrangling in R"
 date: "`r Sys.Date()`"
 author: 
-  - name: "**Content creator: Ginny Ulichney**"
+  - name: "Content creator: **Ginny Ulichney**"
+  - name: "Content editor: **Billy Mitchell**"
 output:
   html_document:
     number_sections: true
@@ -27,13 +28,22 @@ knitr::opts_chunk$set(echo = TRUE)
 options(yaml.eval.expr = TRUE)
 ```
 
+```{r loading vembedr, eval = T, include=F, echo = FALSE}
+# Necessary to embed the youtube videos.
+library(vembedr)
+```
+
 ## Introduction
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Jc87nRBSPWQ" frameborder="0" allowfullscreen></iframe>
+```{r Intro Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=Jc87nRBSPWQ")
+```
 
-# Section 1
+# Section 1: Exploring, renaming, and filtering data
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=mK7vYaetHI8" frameborder="0" allowfullscreen></iframe>
+```{r Section 1 Video, echo = F}
+vembedr::embed_url("https://www.youtube.com/watch?v=mK7vYaetHI8")
+```
 
 ## Workshop Setup
 
@@ -63,6 +73,7 @@ if(length(p_to_install) > 0){
 
 lapply(wrangling_packages, library, character.only = TRUE)
 ```
+NOTE: If you receive an error stating: ```error: JAVA_HOME cannot be determined from the Registry```, try [this troubleshooting page to resolve the issue](https://www.r-statistics.com/2012/08/how-to-load-the-rjava-package-after-the-error-java_home-cannot-be-determined-from-the-registry/).
 
 Now let's clean our environment of the variables we won't need 
 ```{r Removing Unnecessary Variables}
@@ -87,7 +98,7 @@ rm(wd)
 getwd()
 
 #change the directory to where you have the COG2022_DataWranglinginR.csv saved
-wd <- "C:/Users/Wjpmi/Documents/GitHub/cog_summer_workshops_2022/data-wrangling-in-r/"
+wd <- "C:/Users/tui81100/Documents/GitHub/cog_summer_workshops_2022/data-wrangling-in-r/"
 setwd(wd)
 
 #we won't be using the variable wd any longer
@@ -100,9 +111,13 @@ For this workshop, we will be using publicly-available New York Times Cooking co
 * [Kaggle source](https://www.kaggle.com/datasets/michaelruddy/new-york-times-recipe-comments)
 * [New York Times API](https://developer.nytimes.com)
 
-## Step 1: Import raw data
+## Import raw data
 
-We're first going to import the New York Times Cooking comment data as a dataframe. There are a few ways to do this that we'll go through. You can use the "read.csv" function from the ```utils``` package, which is likely the most common way to load .csv data. However, You can also use the ```fread``` function from the ```data.table``` package, which is much better for datasets of this size, as we'll see (thank you Billy for introducing me to this one)! Note that we first list the package that it's from followed by two colons and then the function. This is to let R know where to find the function. This usually isn't necessary, but doing this will allow you to call a function without necessarily loading it into our environment with ```library()``` or, as in our case, resolve issues between packages when two packages have a similarly named function. It just tells R which package we want R to pull *Function X* from.
+We're first going to import the New York Times Cooking comment data as a dataframe. There are a few ways to do this that we'll go through. You can use the "read.csv" function from the ```utils``` package, which is likely the most common way to load .csv data. However, You can also use the ```fread``` function from the ```data.table``` package, which is much better for datasets of this size, as we'll see (thank you Billy for introducing me to this one)! 
+
+Note that we first list the package that it's from followed by two colons and then the function. This is to let R know where to find the function. This usually isn't necessary, but doing this will allow you to call a function without necessarily loading it into our environment with ```library()``` or, as in our case, resolve issues between packages when two packages have a similarly named function. It just tells R which package we want R to pull *Function X* from.
+
+Also note that the dataframe starts as a zipped file. This is because the raw data is too large to be hosted by Github. You will need to extract the file first. Usually, this is an option in your right-click menu. 
 
 ```{r Import}
 nyt_raw <- data.table::fread("df.csv", 
@@ -117,7 +132,7 @@ head(nyt_raw, n = 20) #this will show a snippet of the first 20 rows of the data
 
 The data I imported here is the raw data file downloaded straight from the Kaggle page. As we can see from the snippet above, it's not very well-organized, which is where this workshop should come in handy! We'll walk through organization steps now.
 
-## Step 2: Data Organization
+## Data Organization
 Based on the New York Times Cooking API and the data source on Kaggle, it looks like the columns in our dataset are organized as follows. Italicized column names are those we will be examining today: 
 
 * V1: the index of the comment within a specific recipe 
@@ -200,7 +215,6 @@ We can also use visualizations to understand our variables of interest.
 ```{r QA Visualizations}
 hist(nyt$replyCount)
 plot(nyt$replyCount)
-
 ```
 
 Checking our data for quality assurance could clearly become a lengthy process depending on the number of variables you're looking at! Here are a few commands to make data exploration more concise:
@@ -329,7 +343,7 @@ head(nyt, n = 10)
 
 How would we add the ```arrange()```, and ```filter()``` functions above into our "nyt_concise" dataframe?
 
-```{r exercise 1}
+```{r exercise 1, eval = F, message=F}
 #changing the creation date to timedate format must be done separately
 nyt_concise$createDate <-lubridate::as_datetime(nyt_concise$createDate)
 
@@ -340,9 +354,11 @@ head(nyt_concise)
 
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r/solutions/exercise1.R)
 
-# Section 2
+# Section 2: Mutating data, merging dataframes, exporting data
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=DG64hpm1yFc" frameborder="0" allowfullscreen></iframe>
+```{r Section 2 Video, echo = F}
+vembedr::embed_url("https://www.youtube.com/watch?v=DG64hpm1yFc")
+```
 
 ## Mutate and Transmute: create columns based on existing columns
 
@@ -408,13 +424,13 @@ write.csv(nyt, "nyt_clean.csv") #this will save the cleaned file from above into
 
 Congratulations, you now have the skills to wrangle any large and messy dataset you might encounter into a beautiful, usable format! It is important to note that this is not an exhaustive walkthrough of all wrangling techniques available to you both in terms of other packages or formats (e.g., Base R) nor in terms of ```dplyrv's wrangling functionality itself, but I hope it's been helpful for introducing a few new data wrangling techniques into your repertoire. For the end of thr workshop, I'm going to give a few exercises and practical examples to show where some of the techniques we walked through might come in handy and to encourage you to look into others.
 
-# Step 3: Application
+# Section 3: Application
 
 ## Small Group Exercise 2: Review
 
 For the second exercise, I'm going to ask you to use the functions above to answer a few specific questions about our final cleaned "nyt" dataset that might be similar to some exploratory steps you'd take on your own data.
 
-```{r Exercise 2}
+```{r Exercise 2, eval=F}
 ## How many rows and columns are in the dataset?
 
 ## What classes are the "commentBody" and "textLength" columns?
@@ -440,7 +456,7 @@ The last exercise is going to be a bit of advanced application of what we've wal
 
 1. Using a t-test via the ```t.test()``` function, compare comment sentiment for 2 different recipes. First, wrangle data into a usable format, and then perform the t-test. Feel free to use the help command in R ("?FUNCTION()) or the cheatsheets for any help. I've included suggested steps, but feel free to do whatever makes most sense to you.
 
-```{r Exercise 3}
+```{r Exercise 3, eval=F}
 ## Save nyt as new dataframe
 
 ## Call the recipeName function using the $ operator to choose recipe names
@@ -457,7 +473,7 @@ The last exercise is going to be a bit of advanced application of what we've wal
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r/solutions/exercise3.R)
 
 2. Using two simple linear regressions via the ```lm()``` function, examine a) whether replyCount is predicted by sentiment, and b) whether textLength predicts sentiment. First, wrangle data into a usable format, and then perform the regressions. Feel free to use the help command in R ("?FUNCTION()) or the cheatsheets for any help. I've included suggested steps, but feel free to do whatever makes most sense to you.
-```{r Exercise 4}
+```{r Exercise 4, eval=F}
 ## Save nyt as new dataframe
 
 ## Select needed columns 
