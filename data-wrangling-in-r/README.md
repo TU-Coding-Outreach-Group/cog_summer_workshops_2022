@@ -2,10 +2,9 @@
 # Data Visualization in R
 06/08/2022
 
-__**Content creator:**__ Ginny Ulichney \n
-__**Content editor:**__ Billy Mitchell
+__**Content creator:**__ Ginny Ulichney
 
-![Access the .html tutorial here](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-wrangling-in-r/index.html)
+__**Content editor:**__ Billy Mitchell
 
 ## Description
 This workshop will cover some basic and intermediate data wrangling functions in R using the Tidyverse package (primarily tidyr and dplyr). The workshop will focus on practical and concise data organization. We will start with a walk-through of common data organization functions, discuss more efficient wrangling using piping, and finally, apply practical organization skills to some exercises. The goal of this workshop is to equip attendees with the skills to transform raw data into organized, analysis-ready data.
