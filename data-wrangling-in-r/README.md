@@ -1,5 +1,5 @@
 # Coding Outreach Group Summer Workshop
-# Data Visualization in R
+# Data Wrangling in R
 06/08/2022
 
 __**Content creator:**__ Ginny Ulichney
