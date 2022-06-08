@@ -35,6 +35,9 @@ It is worth noting that this workshop will focus on wrangling data using a Tidy 
 2. To highlight some helpful tools R offers when analyzing data
 3. To develop proficiency in conceptualizing data structure
 
+## Notebook Viewer:
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/data-wrangling-in-r/index.html)
+
 ## Outline
 | Section | Description | Time |
 | --- | --- | --- |
