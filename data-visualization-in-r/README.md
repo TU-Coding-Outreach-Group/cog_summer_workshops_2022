@@ -2,7 +2,8 @@
 # Data Visualization in R
 06/13/2022
 
-__**Content creator:**__ Billy Mitchell
+__**Content creator:**__ Billy Mitchell 
+__**Content editor:**__ Elizabeth Beard
 
 ## Description
 With science communication depending increasingly upon digital spaces, the ways in which researchers can communicate their findings in presentations, posters, papers, or webpages is expanding. Animating visualizations or making their interactive can be more engaging for the audience and increase comprehension. This tutorial will provide a brief overview of the ways in which researchers can make static, basic graphs more dynamic, interactive, and interesting using basic functionality primarily with three R packages: gganimate, plotly, and shiny.     
@@ -24,6 +25,9 @@ This workshop demands that users:
 1. Demonstrate how to generate interactive visualizations w/ ```plotly```
 2. Demonstrate how to generate animated visualizations w/ ```gganimate```
 3. Demonstrate how to generate reactive visualizations w/ ```shiny```
+
+## Workshop materials:
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/data-visualization-in-r/index.html)
 
 ## What We Won't Cover:
 We will not be covering data wrangling, or how to format the data to in way that facilitates visualization. This will be covered in a preceding workshop designed by Ginny Ulichney. We also will not be covering how to conduct statistical tests of the data that we will be visualizing. Lastly, we will not be reviewing many basic visualizations like bar graphs or regression plots that I had covered in the previous year's workshop.  
@@ -62,3 +66,4 @@ Supplemental information can be found within the [supplements folder](https://gi
 
 ### Other Workshops
 - COG 2021 [Data Visualization in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/data-visualization-in-r) workshop by Billy Mitchell
+- COG 2022 [Data Wrangling in R](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r) workshop by Ginny Ulichney
