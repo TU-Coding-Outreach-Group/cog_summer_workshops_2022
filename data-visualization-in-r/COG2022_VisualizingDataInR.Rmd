@@ -26,7 +26,9 @@ knitr::opts_chunk$set(error = TRUE)
 
 ## Introduction
 
-![**Introduction Video**](Presentations/Introduction.mp4)
+```{r Intro Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=lp0Ie2O0qlg")
+```
 
 Today we will be be creating dynamic, interactive visualizations as a means of representing underlying quantitative and qualitative trends in a pre-existing (albeit, heavily altered) dataset. This data has already been formatted and cleaned to facilitate visualizations. We will **not** be reviewing how to wrangle this data or hypothesis test this data today. This was covered during our 2021 bootcamp, which can be [accessed on our github](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/R). We also won't really be focusing on basic ggplot visualizations for this data today. This was covered in our 2020 and 2021 summer workshops, which can also be [accessed on our github](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/tree/main/data-visualization-in-r). This workshop builds upon previous workshops to demonstrate how to generate advanced, creative plots appropriate for both academic and industry presentations. Luckily, many of the resources to generate these plots are pretty user-friendly, so it's not a very code-heavy workshop, but it does necessitate comfortability with ggplot and intermediate R syntax.
 
@@ -36,7 +38,7 @@ Let's get started by first loading the packages that we're going to need in this
 
 ```{r Package Management, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
   install.packages("pacman")
-  pacman:p_load(Package1, Package2, Package3)
+  pacman::p_load(Package1, Package2, Package3)
 ```
 
 ## Exercise 1
@@ -52,12 +54,13 @@ We're going to start with something easy. Install and load the following package
   * ```transformr```
   * ```VIM```
   
+NOTE: ```transformr``` is used in a demonstration (to animate linear trends), but should not be necessary to complete the exercises. I note this because it can sometimes be finicky to load. You may need to [update your java](https://java.com/en/download/) to the most current version (v8.333 at the time of this tutorial). If issues persist, try this [stack overflow thread of issues people have ran into with transformr](https://stackoverflow.com/search?q=transformr)
+  
 ```{r Exercise 1, code="'\n\n\n\n'", results=F}
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise1.R)
-
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise1.R)
 
 ## Loading Data
 
@@ -82,7 +85,9 @@ This is a subset of deidentified data from the SAN & AML lab's 2019 haunted hous
 
 # Data Distribution
 
-![**Section 1**](Presentations/Section1.mp4)
+```{r Section 1 Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=2zylqLNRdkM")
+```
 
 As I had mentioned earlier, we can generally assume that this dataset is ideally structured for generating visualizations, so we won't be covering basic visualizations like histograms or qqplots. Those were covered extensively in previous workshops. However, there are a few neat tricks that were not covered in the past workshop that I wanted to share today. 
 
@@ -114,7 +119,7 @@ gg_miss_var(df_temp)
 Now we can see a printout for exactly how many variables we have missing for each of our columns, or variables. This is helpful to know, but what would be even better is the pattern of information that that is missing. If we find that we're consistently missing information in specific patterns, it might be indicative of a much deeper problem with our study design. This is where ```aggr``` comes in:
 
 ```{r Visualizing Pattern of Missing data}
-summary(aggr(df_temp, sortVar=TRUE))$combinations
+summary(VIM::aggr(df_temp, sortVar=TRUE))$combinations
 ```
 
 From ```aggr```, we get a few outputs:
@@ -178,7 +183,7 @@ ggplot(data = df, aes(x = XVAR, y = YVAR)) +
 
 Viola! You have a beautiful little violin plot. If we'd like to add a moderator, we can add a few more arguments:
 ```{r Violin Plots, eval=FALSE,include=TRUE, message=FALSE, warning=FALSE, error=FALSE}
-ggplot(data = df, aes(x = XVAR, y = XVAR, fill=MVAR, color = MVAR)) + 
+ggplot(data = df, aes(x = XVAR, y = YVAR, fill=MVAR, color = MVAR)) + 
       theme_classic()+
       geom_jitter(aes(alpha=0.2, color=MVAR),shape=16, position=position_jitter(0.2)) + 
       geom_violin(trim=F, alpha=0.5) +
@@ -199,11 +204,13 @@ Let's generate a violin plot to examine how the z-scored emotional intensity var
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise2.R)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise2.R)
 
 # Interactive Visualizations
 
-![**Section 2**](Presentations/Section2.mp4)
+```{r Section 2 Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=Oca7EC3tsdY")
+```
 
 Great! So we now have a beautiful violin plot that tells us about people's emotional and regulatory experiences while experiencing a haunted house. Plots can deceptive sometimes though. What exactly is the mean value for any emotion? What is the interquartile range? We get a general idea from a static plot, but we could make the plot more dynamic in order to carry more information. This is where ```plotly``` becomes incredibly useful. 
 
@@ -232,7 +239,7 @@ Let's generate an interactive violin plot where we get output for all of the cur
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise3.r)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise3.r)
 
 ## Saving Plots
 
@@ -247,7 +254,9 @@ There are means of saving these as .PNG files as well using the ```webshot``` pa
 
 # Animated Visualizations
 
-![**Section 3**](Presentations/Section3.mp4)
+```{r Section 3 Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=m5_ehZr-KEg")
+```
 
 Another means of making our plots more interesting while also conveying a greater amount of information is by using animation. Unlike interaction, animation might not be very beneficial to all plot types, but whenever we want to demonstrate change over time or across ordered variables, it can be very helpful. One advantage animated plots does have over interactive plots, though, is that they may by useful in a greater number of contexts. It would be difficult to place an interactive plot on a digital poster or presentation and see a major benefit. Animation is just as effective in your presentation as it is almost anywhere else. We're going to use the ```gganimate``` package to generate animated ggplot visualizations.
 
@@ -265,6 +274,8 @@ ggplot(df, aes(x = Emo.Extent_z, y = Reg.Extent_z)) +
 
 It doesn't look super great with the stat_smooth line, but we can pivot to data points and hopefully see a more interesting trend.
 
+NOTE: ```gganimate``` can sometimes fail to render a .gif and instead produce multiple .png's that save to your current directory. If this does occur, check that you have [either the ```gifski``` or ```png``` packages on your machine](https://stackoverflow.com/questions/58991580/gganimate-returns-png-files-but-no-animated-object). ```gganimate``` should automatically download them, but sometimes it doesn't work. Failing all else, see this thread about [rendering manually using gifski](https://stackoverflow.com/questions/60259080/fail-to-render-an-animation)
+
 ## Exercise 4
 
 Let's generate a brand new plot with z-scored affective intensity and regulation effort as the x and y variables respectively. Instead of a regression line, let's use geom points for individual participants and let's alter the size of those points according to how fearful the person was during the haunted house. Event will be the time variable. Lastly, let's save it as an object named plot_anim
@@ -273,7 +284,7 @@ Let's generate a brand new plot with z-scored affective intensity and regulation
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise4.r)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise4.r)
 
 ## Exporting Animated Plots
 
@@ -285,7 +296,9 @@ anim_save("anim_plot.gif", animation = plot_anim)
 
 # Reactive Visualizations 
 
-![**Section 4**](Presentations/Section4.mp4)
+```{r Section 4 Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=UGoXEHi2zoM")
+```
 
 Last thing we're going to closely cover today are Shiny applications. Shiny apps are dynamic, interactive applications that we can build in R and host on the web due to a little CSS, HTML, and javascript integration. The possibilities with Shiny Apps are really endless. I used shiny to build an interactive Dungeons & Dragons combat simulator last year and I've seen plenty used to illustrate, calculate, and evaluate plenty of statistical relationships. With some extra coding, Shiny apps can do just about everything we've already covered, but where they rise above and beyond ```plotly``` and ```gganimate``` is their ability to generate *reactive* plots, or plots with knobs we can turn that yield substantive changes in how the data is visualized. Let's just quickly take a very general, very brief overview on the backend of Shiny Apps.
 
@@ -589,7 +602,7 @@ Let's try creating a plot like we had above using the Fright Night data. We're g
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise5.r)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise5.r)
 
 ## Exercise 6
 
@@ -599,7 +612,7 @@ Building off of last exercise, let's make the exact same plot, but now with the 
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise6.r)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise6.r)
 
 ## Exercise 7
 
@@ -609,12 +622,14 @@ Alright, for the final exercise, let's really kick things up a notch by adding y
 
 ```
 
-[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-visualization-in-r/Solutions/exercise7.r)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/data-visualization-in-r/Solutions/exercise7.r)
 
 
 # Conclusion
 
-![**Concluding Remarks**](Presentations/Conclusion.mp4)
+```{r Conclusion Video, echo = FALSE}
+vembedr::embed_url("https://www.youtube.com/watch?v=0lKhJga7cMM")
+```
 
 **Congrats!** You made it through a long and somewhat difficult and you probably a better person academically, socially, morally, and spiritually for it.  
 
