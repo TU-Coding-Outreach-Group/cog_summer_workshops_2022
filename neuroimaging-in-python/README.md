@@ -1,12 +1,10 @@
 # Coding Outreach Group Summer Workshop
 # Neuroimaging in Python
-07/15/2021
+06/22/2022
 
 __**Content creator:**__ Kim Nguyen
 
-__**Content editor:**__ Haroon Popal
-
-**WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
+__**Content editor:**__ Billy Mitchell
 
 
 ## Description
