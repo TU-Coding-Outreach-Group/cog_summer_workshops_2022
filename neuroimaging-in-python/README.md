@@ -28,7 +28,7 @@ In this workshop, we walk attendees through a series of traditional fMRI analyti
 
 ## Workshop Materials
 - [Data](https://drive.google.com/drive/folders/1eIQwZ4as6zlo25SheCDSrjfZdeRm9UjZ?usp=sharing)
-- [Notebook Viewer](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/neuroimaging-in-python/index.html)
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/neuroimaging-in-python/index.html)
 - [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/neuroimaging-in-python/neuroimaging_python_intro-COG2022.pdf)
 
 ## Outline
