@@ -27,6 +27,7 @@ In this workshop, we walk attendees through a series of traditional fMRI analyti
 2. Demonstrate benefits of scripting analyses in python
 
 ## Workshop Materials
+- [Data](https://drive.google.com/drive/folders/1eIQwZ4as6zlo25SheCDSrjfZdeRm9UjZ?usp=sharing)
 - [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/neuroimaging-in-python/index.html)
 - [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/neuroimaging-in-python/neuroimaging_python_intro-COG2022.pdf)
 
@@ -39,9 +40,6 @@ In this workshop, we walk attendees through a series of traditional fMRI analyti
 | Examples | Unconventional design matricies and further resources | 5 min 
 
 ## Additional Resources
-*** UNDER CONSTRUCTION ***
-
-
 ### Literature
 - [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
     - The original paper that introduced RSA
