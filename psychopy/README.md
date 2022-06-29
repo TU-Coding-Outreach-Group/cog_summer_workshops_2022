@@ -24,9 +24,9 @@ This workshop will cover key components of working with the PsychoPy using the '
 2. Review experimental design tools that are particularly helpful for neuroimaging tasks.
 
 ## Workshop Materials
-- [Notebook Viewer]()
-- [Stim Folder]()
-- [Script]()
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/psychopy/index.html)
+- [Stim Folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/psychopy/stim)
+- [Script](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/psychopy/adorable-study.py)
 
 ## Outline
 | Topic | Time | Description |
