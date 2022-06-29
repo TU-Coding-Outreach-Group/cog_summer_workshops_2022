@@ -15,7 +15,7 @@ This workshop will cover key components of working with the PsychoPy using the '
 
 ## Set Up (do before the workshop)
 1. Install standalone [PsychoPy](https://psychopy.org/download.html) (version 22.1.3 or later).
-2. Download the 'stim' folder and materials from the TU COG Github. This folder will contain the necessary files for the exercises in today's workshop.
+2. Download the 'stim' folder and materials [here](https://drive.google.com/drive/folders/1Au0SkjkGT_t3kILqU3KMbY3K3L7tZF2Z?usp=sharing). These can also be downloaded from the TU COG Github. This folder will contain the necessary files for the exercises in today's workshop.
 3. Download the 'adorable_study.py' script from Github.
 
     
