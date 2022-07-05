@@ -13,22 +13,20 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 
 ## Prerequisites
 1. Comfort coding in R
+    - If you need to refresh your R knowledge, please check the previous R workshops from our group (by [Ginny Ulichney](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/data-wrangling-in-r) & [William Mitchell](https://github.com/TU-Coding-Outreach-Group/intro-to-coding-2021/tree/main/R)) 
 2. Familiarity with file path structures
 3. Faimilarity with general neuroimaging analysis concepts
 
 ## Set Up (do before the workshop)
-1. Make sure you've installed the following python packages:
-    - [nltools](https://nltools.org/install.html) in a python 3 environment. `pip install nltools`
-2. Make sure you have a python 2 and a python 3 environment.
-    - Instructions on how to [set up environments with anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/switch-environment/).
-    - [nltools](https://nltools.org/install.html) 
-    - We will be using the nltools package to create and visual RDMs, and complete a region of interest RSA.
-3. Install [pymvpa](pymvpa.org/installation.html) in a python 2 environment.
+1. Download the R-markdown script from Github 
+1. Download the data used in the workshop 
+1. Download the packages required for the workshop 
     
 ## Workshop objectives:
 1. Introduce the basic framework of representational similarity analysis 
-2. Demonstrate how to create representational dissimilarity matrices from models, behavioral data, and neuroimaging data
-3. Demonstrate RSA with a region of interest approach
+2. Demonstrate how to create representational similarity matrices from neuroimaging (specifically, functional MRI) data 
+3. Demonstrate RSA with a region of interest approach 
+4. Relate neural similarity to behavioral outcomes 
 
 ## Workshop Materials
 - [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/rsa/index.html)
@@ -44,7 +42,6 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 | Outro | Significance Testing, Additional Resources & Examples | 5 min |
 
 ## Additional Resources
-*** UNDER CONSTRUCTION ***
 
 ### Literature
 - [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
@@ -55,10 +52,10 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
     - An in-depth RSA guide aimed for memory researchers
 
 ### Packages
-- [Dartbrains](https://dartbrains.org/content/RSA.html)
+- [Dartbrains](https://dartbrains.org/content/RSA.html) - python
     - Excellent tutorial. Much of the code in this workshop was adapted from this resource.
     - Uses the nltools package
-- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html)
+- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html) - python
     - Includes searchlight analysis
 - [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
 - [NeuroRA](https://neurora.github.io/NeuroRA/)
