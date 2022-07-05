@@ -233,7 +233,8 @@ dev.off()
 
 
 ## Exercise-1
-Now you should calculate the RSA for the second subject in HPC & plot the similarity matrices
+Now you should calculate the RSA for the second subject in HPC & plot the similarity matrices.
+**Note**: The exercises in this notebook are "fill in the blank". Replace the "..."s with the correct code to complete the exercises. 
 
 ```{r, include=FALSE}
 
