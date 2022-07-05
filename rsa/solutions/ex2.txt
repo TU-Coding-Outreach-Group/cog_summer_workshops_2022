@@ -1,0 +1,28 @@
+for (nSub in 1:length(subjects)) { 
+
+      # extract the data for this subject & this ROI
+      df.thisroi <- subset(df.fmri, subID==sprintf("%s",subjects[nSub]) & ROI=="FFA")
+      
+      #### Calculate the similarity (correlations)  ####
+      # for this we'd need to make sure the data is coded as numeric.
+      thisroi_rsm <- cor(df.thisroi[3:18], df.thisroi[3:18], use = "complete.obs", method = "pearson") 
+      
+      # Fisher z transform
+      z_thisroi_rsm <- psych::fisherz(thisroi_rsm)
+      
+      # save the similarity matrix (r) in the results directory
+      write.table(data.frame(thisroi_rsm),file=sprintf("results/%s_EncodingRSM_FFA_r.csv",subjects[nSub]), quote=F,sep=",",row.names=F)
+      
+      # save Fosher z-transformed similarity matrix in the results directory
+      write.table(data.frame(z_thisroi_rsm),file=sprintf("results/%s_EncodingRSM_FFA_z.csv",subjects[nSub]), quote=F,sep=",",row.names=F)
+      
+      #### Plot & save  ####
+      # first turn this data frame into a matrix for heat map
+      thisroi_mtr <- as.matrix(thisroi_rsm) 
+
+      pdf(file=sprintf("figures/EncodingRSM_%s_FFA.pdf",subjects[nSub]), width=5, height=5)
+      corrplot(thisroi_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T,
+               title= sprintf("%s: Encoding RSM in FFA",subjects[nSub]), mar=c(0,0,1,0))
+      dev.off()
+      
+}
