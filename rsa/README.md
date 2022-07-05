@@ -1,6 +1,6 @@
 # Coding Outreach Group Summer Workshop
 # Representational Similarity Analysis
-07/15/2021
+07/13/2022
 
 __**Content creator:**__ Büşra Tanrıverdi
 
