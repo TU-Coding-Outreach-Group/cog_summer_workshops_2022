@@ -1,70 +1,47 @@
 # Coding Outreach Group Summer Workshop
 # Javascript Integration with Qualtrics
-07/15/2021
+07/15/2021 **Rescheduled for 08/03/2022**
 
 __**Content creator:**__ V.S. Vaidyanathan
 
-__**Content creator:**__ Elizabeth Beard
-
-**WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
+__**Content editor:**__ Liz Beard
 
 ## Description
-Representational similarity analysis (RSA) is a newer analytic technique that can be used for both neural and behavioral data and is great for exploring high-dimensional data or comparing data across different modalities.
+Qualtrics offers out-of-the box survey capabilities and is paid for by the University. It’s easier to get survey data from online panels (MTurk, Prolific, Cloud Research) with software such as Qualtrics or Pavlovia instead of recruiting in-person.
+
+Today, we are going to build a few workflows using Qualtrics and see how javascript can be used to customize options beyond vanilla Qualtrics.
 
 ## Prerequisites
-1. Comfort coding in python
-2. Familiarity with file path structures
-3. Faimilarity with general neuroimaging analysis concepts
+1. Have a working Qualtrics account.
 
 ## Set Up (do before the workshop)
-1. Make sure you've installed the following python packages:
-    - [nltools](https://nltools.org/install.html) in a python 3 environment. `pip install nltools`
-2. Make sure you have a python 2 and a python 3 environment.
-    - Instructions on how to [set up environments with anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/switch-environment/).
-    - [nltools](https://nltools.org/install.html) 
-    - We will be using the nltools package to create and visual RDMs, and complete a region of interest RSA.
-3. Install [pymvpa](pymvpa.org/installation.html) in a python 2 environment.
+1. Download the images from the [stim folder](){target="_blank"}.
+2. Download the sample surveys from the [qsfs folder](){target="_blank"} and import them into qualtrics. [Click here for instructions on how to import ths surveys.](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey){target="_blank"}. For Studies 1 and 2, we will have a sample survey set up and a solution you can compare against. For Study 3, we'll set everything up from scratch.
     
 ## Workshop objectives:
-1. Introduce the basic framework of representational similarity analysis 
-2. Demonstrate how to create representational dissimilarity matrices from models, behavioral data, and neuroimaging data
-3. Demonstrate RSA with a region of interest approach
+You will the workshop with some sample code to perform the following functions inside Qualtrics:
+
+1.	Randomize order of stimuli across conditions
+2.	Hide the next button for a stipulated time period
+3.	Play videos in Qualtrics and set options to autoplay, loop, hide controls
+4.	Customize question text 
+5.	Learn where to look for solutions to questions you may have
+
+Hopefully at the end of today we are comfortable enough to do more (customize options based on randomized order and previous answer, implement swipe actions for mobile devices) and implement more within-subjects designs in your online panel studies.
 
 ## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/rsa/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2021/blob/main/rsa/rsa_intro-COG2021.pdf)
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/javascript-qualtrics/index.html)
 
 ## Outline
 | Topic | Time | Description |
 | --- | --- | --- |
-| Intro | Why use RSA? | 5 min |
-| Tutorial 1 | ROI RSA | 30 min |
-| Tutorial 2 | Searchlight RSA (coming soon) | 15 min |
-| Tutorial 3 | Significance Testing (coming soon) | 10 min |
-| Outro | RSA with multi-dimensional data | 5 min |
+| Intro | Why use JavaScript in Qualtrics? | 5 min |
+| Study 1 | Embedding variables | 5 min |
+| Study 2 | Hide the next button | 10 min |
+| Study 3 | Within-subjects designs | 25 min |
+| Extras | Customizing text and video options | 10 min |
+| Outro | Troubleshooting | 5 min |
 
 ## Additional Resources
 *** UNDER CONSTRUCTION ***
-
-### Literature
-- [Kriegeskorte et al., 2008](https://www.frontiersin.org/articles/10.3389/neuro.06.004.2008/full?utm_source=FWEB&utm_medium=NBLOG&utm_campaign=ECO_10YA_top-research)
-    - The original paper that introduced RSA
-- [Popal et al., 2019](https://academic.oup.com/scan/article/14/11/1243/5693905)
-    - An RSA how-to and why-to guide aimed for the social neuroscience community
-- [Dimsdale-Zucker & Ranganath, 2018](http://hrz-website.s3.amazonaws.com/papers/dimsdale-zucker_ranganath_2018_published-chapter.pdf)
-    - An in-depth RSA guide aimed for memory researchers
-
-### Packages
-- [Dartbrains](https://dartbrains.org/content/RSA.html)
-    - Excellent tutorial. Much of the code in this workshop was adapted from this resource.
-    - Uses the nltools package
-- [PyMVPA](http://www.pymvpa.org/examples/rsa_fmri.html)
-    - Includes searchlight analysis
-- [Brain imaging analysis kit](https://brainiak.org/tutorials/06-rsa/)
-- [NeuroRA](https://neurora.github.io/NeuroRA/)
-
-### Other Workshops
-- [Mark Thornton's RSA workshop](https://colab.research.google.com/drive/1UEtFr-oJisRzl8BmzbNdMZZ7-Of0gLcH?usp=sharing) for Society for Social Neuroscience 2021
-- [MIND 2018 RSA workshop](https://github.com/markallenthornton/mind_2018/tree/master/tutorials/representational_similarity) in R
-
 
