@@ -15,8 +15,8 @@ Today, we are going to build a few workflows using Qualtrics and see how javascr
 1. Have a working Qualtrics account.
 
 ## Set Up (do before the workshop)
-1. Download the images from the [stim folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/stim){target="_blank"}.
-2. Download the sample surveys from the [qsfs folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/qsfs){target="_blank"} and import them into qualtrics. [Click here for instructions on how to import ths surveys.](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey){target="_blank"}. For Studies 1 and 2, we will have a sample survey set up and a solution you can compare against. For Study 3, we'll set everything up from scratch.
+1. Download the images from the [stim folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/stim).
+2. Download the sample surveys from the [qsfs folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/qsfs) and import them into Qualtrics. [Click here for instructions on how to import ths surveys.](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey). For Studies 1 and 2, we will have a sample survey set up and a solution you can compare against. For Study 3, we'll set everything up from scratch.
     
 ## Workshop objectives:
 You will the workshop with some sample code to perform the following functions inside Qualtrics:

@@ -55,7 +55,7 @@ You want to study the following hypothesis:
 
 **_Seeing happy animals evokes greater positive emoption from subsequent stimuli than seeing happy humans._**  
 
-By now, you should have copied all of the surveys from the [\\qsfs folder](){target="_blank"} into your own Qualtrics. The images we will be using are also in the folder (or you can find them on the workshop [GitHub page](){target="_blank"}). *Please copy the images into your own Qualtrics Graphics library and note down the link for each image as below.*
+By now, you should have copied all of the surveys from the [\\qsfs folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/qsfs){target="_blank"} into your own Qualtrics. The images we will be using are also in the folder (or you can find them on the workshop [GitHub page](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/stim){target="_blank"}). *Please copy the images into your own Qualtrics Graphics library and note down the link for each image as below.*
 
 # Study 1
 You emplyed a between subjects design. Half of the people are shown a happy animal first, then shown four neutral images. The other half are shown a happy human first, then shown the neutral images.
@@ -67,7 +67,7 @@ You want to also randomize the order of the stimuli images you show, so you add 
 ![Screenshot of the qualtrics survey flow, randomizer is added below the condition](misc/Study1_2.png "Randomize Image Order")
 
 ## Solution {.unnumbered}
-The solution can be found [here](){target="_blank"}.
+The solution can be found [here](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/qsfs){target="_blank"}.
 
 # Study 2
 The first concern someone at your lab raised is whether or not people saw the images at all. What if people just clicked through the manipulation? So, you decide to hide the next button for 10 seconds before allowing people to quick through. You will need to add a little bit of JavaScript to each question to achive this.
@@ -93,7 +93,7 @@ setTimeout(function() {jQuery("#NextButton").show(); }, 10000);
 6. Do this for the human image too.
 
 ## Solution {.unnumbered}
-The solution can be found [here](){target="_blank"}.
+The solution can be found [here](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/qsfs){target="_blank"}.
 
 # Study 3
 You ran your study and got some results. Unfortunately, your sample was not balanced across the two conditions. You found that somehow, you had more owmen responding in one of your randomly assigned pages. You cannot separate out the effect of gender and group assignment. You collected the data again and found some marginal age differences between the two groups. You will have to collect another dataset.
