@@ -1,0 +1,45 @@
+# for the loop, we will use the data frame we created with all the subject/roi information
+# create the empty master dataset
+nRow <-1
+
+for (nSub in 1:length(subjects)) { 
+  
+  for (nRoi in 1:length(rois)) { 
+    
+      # extract the data for this subject & this ROI
+      df.thisroi <- subset(df.fmri, subID==sprintf("%s",subjects[nSub]) & ROI==sprintf("%s",rois[nRoi]))
+      
+      #### Calculate the similarity (correlations)  ####
+      # for this we'd need to make sure the data is coded as numeric.
+      thisroi_rsm <- cor(df.thisroi[3:18], df.thisroi[3:18], use = "complete.obs", method = "pearson") 
+
+      # save the similarity matrix in the results directory
+      write.table(data.frame(thisroi_rsm),file=sprintf("results/%s_EncodingRSM_%s.csv",subjects[nSub],rois[nRoi]), quote=F,sep=",",row.names=F)
+      
+      #### Plot & save  ####
+      # first turn this data frame into a matrix for heat map
+      thisroi_mtr <- as.matrix(thisroi_rsm) 
+
+      pdf(file=sprintf("figures/EncodingRSM_%s_%s.pdf",subjects[nSub],rois[nRoi]), width=5, height=5)
+      corrplot(thisroi_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T,
+               title= sprintf("%s: Encoding RSM in %s",subjects[nSub],rois[nRoi]), mar=c(0,0,1,0))
+      dev.off()
+      
+      #### Save this similarity matrix into the master data together with subject/roi information ####
+      masterdata[c(nRow:(nRow+nrow(thisroi_rsm)-1)),c(1:3)] <- cbind(matrix(rep(subjects[nSub],length.out=nrow(thisroi_rsm))), # repeat the subject name
+                                                               matrix(rep(rois[nRoi],length.out=nrow(thisroi_rsm))),
+                                                               row.names(thisroi_rsm)) # get the similarity between images
+      
+      masterdata[c(nRow:(nRow+nrow(thisroi_rsm)-1)),c(4:19)] <- thisroi_rsm # get the similarity between images
+      
+      # increase nRow by total row numbers of thisroi_rsm to correctly save info from the next iteration
+      nRow <- nRow + nrow(thisroi_rsm)
+        
+  }
+}
+
+# finally name columns for similarity values: since these are same as the row names, we can directly copy them over.  
+names(masterdata)[4:19] <- row.names(thisroi_rsm)
+
+# save the master dataset as is
+write.table(data.frame(masterdata),file="results/AllSubjects_AllROIs_EncodingRSM.csv", quote=F,sep=",",row.names=F)
