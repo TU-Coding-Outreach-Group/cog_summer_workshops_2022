@@ -1,0 +1,19 @@
+# test the model
+scene_hpc_itemDist <- lm(sDistance ~ zAvgSimilarity2OtherScenes, data = subset(df.merged, ROI == "HPC" & Category=="scene"))
+summary(scene_hpc_itemDist)
+
+# plot
+p_scene_hpc_itemDist <- ggplot(data=subset(df.merged, ROI=="HPC" & Category =="scene"),
+                               aes_string(x="zAvgSimilarity2OtherScenes",y="sDistance")) +
+  geom_point(size=0.5) + geom_smooth(method=lm, se=FALSE, fullrange=FALSE, level=0.95) +
+  theme_minimal() + labs(x="Scene Encoding Similarity in HPC", y="Recall Distance", title="") +
+  theme(plot.title = element_text(face = "bold", size=10), axis.text.y = element_text(face = "bold", size=7),
+        axis.title.x = element_text(face = "bold", size=10), axis.title.y = element_text(face = "bold", size=10),
+        axis.text.x = element_text(face = "bold", size=7), axis.line = element_line(size = 1, colour = "black"),
+        panel.grid = element_blank(), legend.text = element_text(size = 5, face = "bold"))
+
+# save the plot
+ggsave(p_scene_hpc_itemDist, file=paste0("figures/RecallDistance_by_SceneEncodingRSM_HPC.png"), width=10, height=6, units="cm") 
+
+# view the plot
+p_scene_hpc_itemDist 
