@@ -15,8 +15,8 @@ Today, we are going to build a few workflows using Qualtrics and see how javascr
 1. Have a working Qualtrics account.
 
 ## Set Up (do before the workshop)
-1. Download the images from the [stim folder](){target="_blank"}.
-2. Download the sample surveys from the [qsfs folder](){target="_blank"} and import them into qualtrics. [Click here for instructions on how to import ths surveys.](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey){target="_blank"}. For Studies 1 and 2, we will have a sample survey set up and a solution you can compare against. For Study 3, we'll set everything up from scratch.
+1. Download the images from the [stim folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/stim){target="_blank"}.
+2. Download the sample surveys from the [qsfs folder](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/javascript-qualtrics/qsfs){target="_blank"} and import them into qualtrics. [Click here for instructions on how to import ths surveys.](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey){target="_blank"}. For Studies 1 and 2, we will have a sample survey set up and a solution you can compare against. For Study 3, we'll set everything up from scratch.
     
 ## Workshop objectives:
 You will the workshop with some sample code to perform the following functions inside Qualtrics:
@@ -30,7 +30,7 @@ You will the workshop with some sample code to perform the following functions i
 Hopefully at the end of today we are comfortable enough to do more (customize options based on randomized order and previous answer, implement swipe actions for mobile devices) and implement more within-subjects designs in your online panel studies.
 
 ## Workshop Materials
-- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2021/javascript-qualtrics/index.html)
+- [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/javascript-qualtrics/index.html)
 
 ## Outline
 | Topic | Time | Description |
