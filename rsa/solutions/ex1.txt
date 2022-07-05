@@ -1,0 +1,14 @@
+# HPC RSA
+s2_hpc_corr <- cor(s2_hpc[1:16], s2_hpc[1:16], use = "complete.obs", method = "pearson") 
+
+# save the correlation matrix in the results folder
+write.table(data.frame(s2_hpc_corr),file="results/Sub-686_EncodingRSM_HPC.csv", quote=F,sep=",",row.names=F)
+
+# plot
+s2_hpc_corr_mtr <- as.matrix(s2_hpc_corr) # turn into a matrix for heat map
+corrplot(s2_hpc_corr_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
+
+# to save the plot:
+pdf(file="figures/sub-686_HPC_encodingRSA.pdf", width=5, height=5)
+corrplot(s2_hpc_corr_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
+dev.off()
