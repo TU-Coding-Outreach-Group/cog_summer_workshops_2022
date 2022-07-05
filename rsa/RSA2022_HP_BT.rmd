@@ -25,7 +25,8 @@ editor_options:
 
 ----- NOTES ----- 
 
-VARIABLE ABBREVIATIONS
+| ABBREVIATIONS | VARIABLES |
+| :-----------: |:---------:|
 | RSA | Representational Similarity Analysis |
 | RSM | Representational Similarity Matrix |
 | df | Data frame |
@@ -36,14 +37,14 @@ VARIABLE ABBREVIATIONS
 | Cor | Correlation |
 | mtr | Matrix |
 
------ SCRIPT START ----- 
+# Set Up
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-```{r, include=FALSE, cache=F}
+## Import packages
+```{r, include=TRUE, cache=F}
 # Load Libraries
 library('haven') 
 library('psych')
@@ -66,7 +67,8 @@ options(digits=6)
 ```
 
 
-Define the directories...
+## Define the source directory
+Change this directory to where you downloaded the rsa workshop directory.
 ```{r Setup Directories}
 sourceDir <- "/Users/haroonpopal/Desktop/COG/cog_summer_workshops_2022/rsa/"
 setwd(sourceDir)
@@ -79,26 +81,28 @@ In a memory experiment, subjects learned images paired with a specific location 
 The workshop dataset includes imaging & behavioral data from 2 subjects from that experiment. 
 
 For each subject, we have:
- 1) Their brain activity for each stimulus from two brain regions of interest (ROI): 
-    - Fusiform Face Area (FFA) & Hippocampus (HPC)
-    
-    Below are some examples to show you where these regions are, just for your reference. Please note that these are not the exact masks this data were extracted from.
-    FFA: This is an image from the quick ffa terms search in neurosynth (https://neurosynth.org/analyses/terms/face%20ffa/)
-    [insert the image 'FFA_Neurosynth' within the following directory: sourceDir/figures/task-related/]
 
-    HPC: This is a HPC image from a study by Günseli & Aly (2020; https://elifesciences.org/articles/53191) 
-    [insert the image 'HPC_Gunseli&Aly' within the following directory: sourceDir/figures/task-related/]
+1) Their brain activity for each stimulus from two brain regions of interest (ROI): 
+  - Fusiform Face Area (FFA) & Hippocampus (HPC)
     
- 2) Their recall performance for the location of each image they learned:
-    - Categorical Response/Accuracy Variable (1/0: Correct/Incorrect)
-    - Continuous Distance Variable (a more precise memory performance based on how close/far they are to the target location for the image)
-    
-  [Insert the image 'RecallDistance.png' within the following directory: sourceDir/figures/task-related/]
+Below are some examples to show you where these regions are, just for your reference. Please note that these are not the exact masks this data were extracted from.
 
-# Load and organize the data
+FFA: This is an image from the quick ffa terms search in [neurosynth](https://neurosynth.org/analyses/terms/face%20ffa/)
+![](figures/task-related/Neurosynth_FFA.png)
+
+HPC: This is a HPC image from a study by [Günseli & Aly (2020)](https://elifesciences.org/articles/53191) 
+![](figures/task-related/HPC_Gunseli&Aly.png)
+    
+2) Their recall performance for the location of each image they learned:
+  - Categorical Response/Accuracy Variable (1/0: Correct/Incorrect)
+  - Continuous Distance Variable (a more precise memory performance based on how close/far they are to the target location for the image)
+    
+![](figures/task-related/RecallDistance.png)
+
+## Load and organize the data
 This first part of the script organizes the data into a format to run the RSA between images
 
-```{r, include=FALSE, cache=F}
+```{r, include=TRUE, cache=F}
 # 1. import & clean the imaging data
 s1_ffa <- read.csv('data/sub-660/ffa_l_5m_allImages_AgainstBaseline.csv')
 s1_hpc <- read.csv('data/sub-660/hpc_r_5m_allImages_AgainstBaseline.csv')
@@ -140,11 +144,14 @@ df.recall
 
 ```
 
-# Encoding RSA
-# 1. Within Subject, Within ROI
+
+## Task information
+*blurb about what encoding is in a memory paradigm, and how data will be used. Stuff about how hypotheses are tested in this context and the logic behind the analyses. Why is RSA good for this.*
+
+# Within Subject, Within ROI
 As a reminder we have images from face and scene categories for each subject, in each ROI. We will calculate within and between category similarities.
 
-## 1.1. Calculate Correlations
+## Calculate Correlations
 In this workshop, the representational similarity analysis will be calculated as a Pearson's correlation, so we will use the **cor** function from base R.
 
 In the code below, we don't have any NAs. In case your data does, you can specify the function to use only the complete observations. Also note that you should only include numeric data that will be used for correlations. So here we will specify that in [] 
@@ -164,18 +171,20 @@ s1_hpc_corr <- cor(s1_hpc[1:16], s1_hpc[1:16], use = "complete.obs", method = "p
 write.table(data.frame(s1_hpc_corr),file="results/Sub-660_EncodingRSM_HPC.csv", quote=F,sep=",",row.names=F)
 
 ```
+
 Note that for this example, I am using Pearson correlations, but based on your needs, you may want to use other forms of correlations or distance measures. For instance, you may need to use Spearman if your data requires nonlinear fitting. Below is an example:
 ```{r, eval=FALSE}
 s1_ffa_corr <- cor(s1_ffa[1:16], s1_ffa[1:16], use = "complete.obs", method = "spearman") 
 ```
+
 Note 2: Given your unique data, you may also need to use pairwise correlations. Below is an example:
 ```{r, eval=FALSE}
 s1_ffa_corr <- cor(s1_ffa[1:16], s1_ffa[1:16], use = "pairwise.complete.obs", method = "pearson") 
 ```
 
-## 1.2. Plot (& Save)
+## Plot (& Save)
 Now we'll plot the similarity matrix for our subject in one of the ROIs.
-For this exercise, I will be using the **corrplot** function from the corrplot package, but you can use ggplot's heatmap function too (https://r-graph-gallery.com/79-levelplot-with-ggplot2.html).
+For this exercise, I will be using the **corrplot** function from the corrplot package, but you can use ggplot's [heatmap function](https://r-graph-gallery.com/79-levelplot-with-ggplot2.html) too.
 ``` {r}
 # subject 1, FFA
 s1_ffa_corr_mtr <- as.matrix(s1_ffa_corr) # turn into a matrix for heatmap
@@ -185,7 +194,8 @@ corrplot(s1_ffa_corr_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = 
          title= "sub-660_FFA_encodingRSA", mar=c(0,0,1,0))
 
 ```
-If you are not familiar with the corrplot function, or want to learn more about the arguments we used such as tl.srt, you can check this page: https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
+
+If you are not familiar with the corrplot function, or want to learn more about the arguments we used such as tl.srt, you can check this [page](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.htm)
 
 We can also separately plot the within category similarity alone (i.e., just the similarity of faces or scenes) 
 ``` {r}
@@ -194,6 +204,7 @@ corrplot(s1_ffa_corr_mtr[c(1:8),c(1:8)], method = "color", tl.srt = 45, tl.cex =
          col = viridis(12), diag = T, title= "sub-660_FFA_encodingRSA", mar=c(0,0,1,0))
 
 ```
+
 We can also make the diagonal disappear by setting 'diag' argument within the plot to 'FALSE' (this will make the diagonal appear as white)
 ``` {r}
 corrplot(s1_ffa_corr_mtr[c(1:8),c(1:8)], method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", 
@@ -218,27 +229,15 @@ p <-corrplot(s1_ffa_corr_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.co
 dev.off()
 
 ```
+![](figures/sub-660_FFA_encodingRSA.png)
 
-## 1.3. Exercise-1
+
+## Exercise-1
 Now you should calculate the RSA for the second subject in HPC & plot the similarity matrices
 
-```{r}
-# Subject-2: 
-# HPC RSA
+```{r, include=FALSE}
 
 
-# plot 
-
-
-# bonus points if you save your plot!
-
-
-```
-![Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/rsa/solutions/ex1.txt)
-
-Not sure if I actually updated this part so please check the chunk below and see if it matches the solution you have:
-``` {r, include = FALSE}
-# code to be hidden for the above exercise
 # HPC RSA
 s2_hpc_corr <- cor(s2_hpc[1:16], s2_hpc[1:16], use = "complete.obs", method = "pearson") 
 
@@ -252,12 +251,32 @@ corrplot(s2_hpc_corr_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = 
 # to save the plot:
 pdf(file="figures/sub-686_HPC_encodingRSA.pdf", width=5, height=5)
 corrplot(s2_hpc_corr_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
-dev.off()
+dev.off() 
 
 ```
+```{r, eval=FALSE}
+# Subject-2: 
+# HPC RSA
+s2_hpc_corr <- cor(..., ..., use = "complete.obs", method = "pearson") 
+
+# save the correlation matrix in the results folder
+write.table(data.frame(...),file="results/Sub-686_EncodingRSM_HPC.csv", quote=F,sep=",",row.names=F)
+
+# plot
+s2_hpc_corr_mtr <- as.matrix(...) # turn into a matrix for heat map
+corrplot(..., method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
+
+# Bonus! Save the plot:
+pdf(file="figures/sub-686_HPC_encodingRSA.pdf", width=5, height=5)
+corrplot(..., method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
+dev.off()
+```
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/rsa/solutions/ex1.txt)
 
 
-## 1.4. Fisher z transform
+![Example solution](figures/sub-686_HPC_encodingRSA.png)
+
+## Fisher z transform
 It is always good practice to normalize all our continuous variables for statistical testing, and the correlations
 we calculated for the similarity are no exception. We will use the **fisherz** function from the Psych package for this.
 
@@ -268,7 +287,7 @@ head(z_s1_ffa_corr)
 
 ```
 
-## 1.5. Bonus: Calculate similarity in Loops 
+## Bonus: Calculate similarity in Loops 
 Of course in real fMRI studies, we never deal with only 2 subjects, and we are likely to have more than 2 ROIs.
 So it's a good practice to learn how to do this iteratively in a loop. 
 
@@ -305,19 +324,12 @@ for (nRoi in 1:length(rois)) {
 
 ```
 
-### 1.5.1. Exercise-2
+
+### Exercise-2
 Alternatively, for each specific ROI, we can create a loop to run all of our subjects' unique ROI RSA iteratively.
 
 Following the example above, you should now create one such for loop for FFA
-```{r}
-
-
-```
-
-
-Solution:
-``` {r, include = FALSE} 
-# code to be hidden for the above exercise
+```{r, include=FALSE}
 for (nSub in 1:length(subjects)) { 
 
       # extract the data for this subject & this ROI
@@ -348,10 +360,43 @@ for (nSub in 1:length(subjects)) {
 }
 
 ```
+```{r, eval=FALSE}
+for (nSub in 1:length(...)) { 
+
+      # extract the data for this subject & this ROI
+      df.thisroi <- subset(... = , subID==sprintf("%s",subjects[...]) & ROI=="FFA")
+      
+      #### Calculate the similarity (correlations)  ####
+      # for this we'd need to make sure the data is coded as numeric.
+      thisroi_rsm <- ...(df.thisroi[3:18], df.thisroi[3:18], use = "complete.obs", method = "pearson") 
+      
+      # Fisher z transform
+      z_thisroi_rsm <- psych::...(thisroi_rsm)
+      
+      # save the similarity matrix (r) in the results directory
+      ...(data.frame(...),file=sprintf("results/%s_EncodingRSM_FFA_r.csv",subjects[nSub]), quote=F,sep=",",row.names=F)
+      
+      # save Fosher z-transformed similarity matrix in the results directory
+      ...(data.frame(...),file=sprintf("results/%s_EncodingRSM_FFA_z.csv",subjects[nSub]), quote=F,sep=",",row.names=F)
+      
+      #### Plot & save  ####
+      # first turn this data frame into a matrix for heat map
+      thisroi_mtr <- as.matrix(...) 
+
+      pdf(file=sprintf("figures/EncodingRSM_%s_FFA.pdf",subjects[nSub]), width=5, height=5)
+      ...(thisroi_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T,
+               title= sprintf("%s: Encoding RSM in FFA",subjects[nSub]), mar=c(0,0,1,0))
+      dev.off()
+      
+}
+
+```
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/solutions/ex2.txt)
 
 
 
-### 1.5.2. Exercise-3
+
+### Exercise-3
 I am sure you guessed where this is going: We can merge all the previous steps together in a nested loop. 
 
 Bonus: We could save the similarity matrix from each iteration into a master data set, which we will later
@@ -360,21 +405,61 @@ be useful for relating the encoding similarity to behavioral performance.
 PS: To keep this loop simple, let's only calculate & save the r-values, but we could always adapt this later 
 to save z-values or both r- and z-transformed correlations.
 
-``` {r}
+```{r}
 # Create an empty data frame. I will provide it here to get you started, but you should make sure to 
 # assign similarity values to this data frame in your loop.
 masterdata <- data.frame(subID = character(), ROI = character(), Trials = character(), 
                          stringsAsFactors = FALSE) 
-
-# write the for loop
-
 ```
 
+```{r, eval=FALSE}
+# for the loop, we will use the data frame we created with all the subject/roi information
+# create the empty master dataset
+nRow <-1
 
-Solutuion: 
-``` {r, include = FALSE}
-# code to be hidden for the above exercise
+for (nSub in 1:length(...)) { 
+  
+  for (nRoi in 1:length(...)) { 
+    
+      # extract the data for this subject & this ROI
+      df.thisroi <- subset(df.fmri, subID==sprintf("%s",subjects[nSub]) & ROI==sprintf("%s",rois[nRoi]))
+      
+      #### Calculate the similarity (correlations)  ####
+      # for this we'd need to make sure the data is coded as numeric.
+      thisroi_rsm <- ...(df.thisroi[3:18], df.thisroi[3:18], use = "complete.obs", method = "pearson") 
 
+      # save the similarity matrix in the results directory
+      ...(data.frame(thisroi_rsm),file=sprintf("results/%s_EncodingRSM_%s.csv",subjects[nSub],rois[nRoi]), quote=F,sep=",",row.names=F)
+      
+      #### Plot & save  ####
+      # first turn this data frame into a matrix for heat map
+      thisroi_mtr <- ...(thisroi_rsm) 
+
+      pdf(file=sprintf("figures/EncodingRSM_%s_%s.pdf",subjects[nSub],rois[nRoi]), width=5, height=5)
+      corrplot(thisroi_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T,
+               title= sprintf("%s: Encoding RSM in %s",subjects[nSub],rois[nRoi]), mar=c(0,0,1,0))
+      dev.off()
+      
+      #### Save this similarity matrix into the master data together with subject/roi information ####
+      masterdata[c(nRow:(nRow+nrow(thisroi_rsm)-1)),c(1:3)] <- cbind(matrix(rep(subjects[nSub],length.out=nrow(thisroi_rsm))), # repeat the subject name
+                                                               matrix(rep(rois[nRoi],length.out=nrow(thisroi_rsm))),
+                                                               row.names(thisroi_rsm)) # get the similarity between images
+      
+      masterdata[c(nRow:(nRow+nrow(thisroi_rsm)-1)),c(4:19)] <- thisroi_rsm # get the similarity between images
+      
+      # increase nRow by total row numbers of thisroi_rsm to correctly save info from the next iteration
+      nRow <- ... + nrow(thisroi_rsm)
+        
+  }
+}
+
+# finally name columns for similarity values: since these are same as the row names, we can directly copy them over.  
+names(masterdata)[4:19] <- row.names(thisroi_rsm)
+
+# save the master dataset as is
+write.table(data.frame(masterdata),file="results/AllSubjects_AllROIs_EncodingRSM.csv", quote=F,sep=",",row.names=F)
+```
+```{r, include=FALSE}
 # for the loop, we will use the data frame we created with all the subject/roi information
 # create the empty master dataset
 nRow <-1
@@ -420,14 +505,13 @@ names(masterdata)[4:19] <- row.names(thisroi_rsm)
 
 # save the master dataset as is
 write.table(data.frame(masterdata),file="results/AllSubjects_AllROIs_EncodingRSM.csv", quote=F,sep=",",row.names=F)
-
 ```
-![](figures/EncodingRSM_sub-660_FFA.pdf)
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/solutions/ex3.txt)
 
 
-# 2. Within Group
-Not all research is about individuals. You may want to run a group-level similarity within your ROI. That is, instead of
-calculating encoding similarity for each of your subjects separately, you may want to see how your group is doing on average.
+
+# Within Group
+Not all research is about individuals. You may want to run a group-level similarity within your ROI. That is, instead of calculating encoding similarity for each of your subjects separately, you may want to see how your group is doing on average.
 
 This means that we will include all the voxels from both our subjects when we are calculating the RSMs.
 
@@ -457,7 +541,7 @@ corrplot(thisroi_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "bla
 ```
 
 Please note that even with the addition of another subject's data, we get stronger correlations!
--
+
 Again we can put this into loop to run all our ROIs, we will not really go over it but you can check the code below: 
 ```{r, include = FALSE}
 # just to make sure, we should empty the previously used arrays/frames
@@ -490,27 +574,22 @@ for (nRoi in 1:length(rois)) {
 
 ```
 
-![](figures/EncodingRSM_GroupLevel_FFA.pdf)
+![](figures/EncodingRSM_GroupLevel_FFA.png)
 
 
-# 3. ROI RSA Predicting Behavior (Memory)
-It's up to us, the researchers, to decide how to relate the similarity data to the behavioral data
-Depending on your question, you may want to correlate behavioral data to your neural similarity matrix.
-If you are interested in this option, you can check a previous workshop run by Iva Brunec in our group for some examples 
-(https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2020/blob/master/representational-similarity-analysis/COG_RSA_workshop.ipynb)
+# ROI RSA Predicting Behavior (Memory)
+It's up to us, the researchers, to decide how to relate the similarity data to the behavioral data. Depending on your question, you may want to correlate behavioral data to your neural similarity matrix. If you are interested in this option, you can check a previous [workshop run by Iva Brunec](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2020/blob/master/representational-similarity-analysis/COG_RSA_workshop.ipynb) in our group for some examples .
+
 
 ---
 
-Alternatively, you may need to predict behavioral outcome from the similarity matrix
-you created, or you may predict the similarity from some behavioral index.
+Alternatively, you may need to predict behavioral outcome from the similarity matrix you created, or you may predict the similarity from some behavioral index.
 
-In this research, my question is whether the encoding similarity between studied images predict
-memory for the same images in a future memory test. So I want to run regression analyses with 
-the similarity data as my predictor, while the behavioral data (memory recall) will be my outcome variable.
+In this research, my question is whether the encoding similarity between studied images predict memory for the same images in a future memory test. So I want to run regression analyses with the similarity data as my predictor, while the behavioral data (memory recall) will be my outcome variable.
 
 To get us started, I will first merge the behavioral recall data with the neural similarity RSMs we created
 ``` {r, include=FALSE}
-df.merged <- merge(df.recall,masterdata, by=c('subID','Trials'))
+df.merged <- merge(df.recall, masterdata, by=c('subID','Trials'))
 
 # let's peak into this newly merged dataset
 df.merged
@@ -520,27 +599,20 @@ df.merged
 
 OUTCOME VARIABLE: RECALL PERFORMANCE
 I can think of several different ways to organize my outcome variable: 
- 1. I have obtained an accuracy (correct vs incorrect) response for each studied image, and I could use that categorical variable
-as the outcome (dependent) variable. 
 
- 2. I have a continuous assessment of the precise spatial location of each image as the subjects remember them. I can use
-this variable (distance) as my outcome variable for an item level analysis.
+1. I have obtained an accuracy (correct vs incorrect) response for each studied image, and I could use that categorical variableas the outcome (dependent) variable. 
+
+2. I have a continuous assessment of the precise spatial location of each image as the subjects remember them. I can use this variable (distance) as my outcome variable for an item level analysis.
 
 
 PREDICTOR VARIABLE: ENCODING SIMILARITY
-How you think of similarity as a predictor depends on your question, and the type of
-analysis you'd like to test. Here I am curious to see if an image's similarity to other within category members 
-is important in remembering that image (i.e., according to interference theories, the more similar the images,
-the more confusing they are, hence harder to remember)
+How you think of similarity as a predictor depends on your question, and the type of analysis you'd like to test. Here I am curious to see if an image's similarity to other within category members is important in remembering that image (i.e., according to interference theories, the more similar the images, the more confusing they are, hence harder to remember)
 
-So, I'd like to get an 'average' similarity assessment for each of my images (i.e., how similar is one face image to the other 
-face images on average?). For this, I can get the mean of an image's similarity to all other images in it's category. 
+So, I'd like to get an 'average' similarity assessment for each of my images (i.e., how similar is one face image to the other face images on average?). For this, I can get the mean of an image's similarity to all other images in it's category. 
 
 I will create these 'average similarities' for each image within each ROI, for each subject
 
-While we are getting the average similarities for each image, we will also obtain an image's similarity to 
-the other category images too. For instance, for Face1, we will create it's average similarity to all other 
-face images (within category similarity), and its average similarity to all scene images (across category similarity).
+While we are getting the average similarities for each image, we will also obtain an image's similarity to the other category images too. For instance, for Face1, we will create it's average similarity to all other face images (within category similarity), and its average similarity to all scene images (across category similarity).
 
 ``` {r}
 categories <- c('face','scene') 
@@ -619,7 +691,7 @@ df.merged$sDistance <- scale(df.merged$Distance)
 ```
 
 
-## 3.1. Predicting Item Accuracy from Average Within Category Similarity (Categorical)
+## Predicting Item Accuracy from Average Within Category Similarity (Categorical)
 We will first test a prediction that an image's similarity to its category will be related to
 whether or not it will be correctly recalled.
 
@@ -649,26 +721,17 @@ p_face_ffa_itemAcc <- ggplot(data=subset(df.merged, ROI == "FFA" & Category=="fa
   scale_y_continuous(limits = c(0,1))
 
 # save the plot
-ggsave(p_face_ffa_itemAcc, file="figures/Face:Accuracy_by_EncodingRSM_in_FFA.png",width=8, height=6, units="cm")
+ggsave(p_face_ffa_itemAcc, file="figures/Face_Accuracy_by_EncodingRSM_in_FFA.png",width=8, height=6, units="cm")
 
 # view the plot
 p_face_ffa_itemAcc
 
 ```
 
-### 3.1.1. Exercise-4
+
+### Exercise-4
 Test scene similarity in HPC in relation to recall accuracy
-``` {r}
-# test the model
-
-
-# plot
-
-```
-
-Solution:
-``` {r, include = FALSE}
-# code to be hidden for the above exercise
+```{r, include=FALSE}
 # test the model
 scene_hpc_itemAcc <- glm(Response ~ zAvgSimilarity2OtherScenes, data = subset(df.merged, ROI == "HPC" & Category=="scene"), 
                         family = "binomial")
@@ -687,17 +750,42 @@ p_scene_hpc_itemAcc <- ggplot(data=subset(df.merged, ROI == "HPC" & Category=="s
   scale_y_continuous(limits = c(0,1))
 
 # save the plot
-ggsave(p_scene_hpc_itemAcc, file="figures/Scene:Accuracy_by_EncodingRSM_in_HPC.png", width=8, height=6, units="cm")
+ggsave(p_scene_hpc_itemAcc, file="figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png", width=8, height=6, units="cm")
 
 # view the plot
 p_scene_hpc_itemAcc
-
 ```
+```{r, eval=FALSE}
+# test the model
+scene_hpc_itemAcc <- glm(... ~ ..., data = subset(df.merged, ROI == "HPC" & Category=="scene"), 
+                        family = "binomial")
+summary(scene_hpc_itemAcc)
 
 
-## 3.2. Predicting Recall Precision from Within Category Similarity (Item Level) 
-We will now test a prediction that an image's similarity to its category will be related to
-how well (precisely) its location will be remembered.
+# plot 
+p_scene_hpc_itemAcc <- ggplot(data=subset(..., ROI == "HPC" & Category=="scene"), 
+            aes_string(x="Accuracy", y="zAvgSimilarity2OtherScenes")) + 
+  geom_bar(stat="summary", fun="mean", width=.4, position="dodge") + theme_minimal() +
+  labs(x="Recall Performance", y="Scene Similarity (Avg) in HPC", title="") +
+  theme(plot.title = element_text(face = "bold", size = 6), axis.text.y = element_text(size = 7, face ="bold"),
+        axis.text.x = element_text(size = 7, face ="bold"), axis.title.x = element_text(size = 7, face = "bold"),
+        axis.line = element_line(size = 1, colour = "black"),panel.grid = element_blank(), legend.title = element_blank(), 
+        legend.position = "top", legend.text = element_text(size = 7, face = "bold"), aspect.ratio=0.7) +
+  scale_y_continuous(limits = c(0,1))
+
+# save the plot
+ggsave(..., file="figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png", width=8, height=6, units="cm")
+
+# view the plot
+...
+```
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/solutions/ex4.txt)
+
+![Example solution](figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png)
+
+
+## Predicting Recall Precision from Within Category Similarity (Item Level) 
+We will now test a prediction that an image's similarity to its category will be related to how well (precisely) its location will be remembered.
 
 Since our outcome variable is categorical (correct (1) vs incorrect(0)), we will fit a nonlinear (binomial) model
 Example: Face similarity in FFA
@@ -725,20 +813,9 @@ p_face_ffa_itemDist
 
 ```
 
-### 3.2.1. Exercise-5
+### Exercise-5
 Test scene similarity in HPC in relation to recall distance
-
-``` {r}
-# test the model
-
-# plot
-
-```
-
-
-Solution:
-``` {r, include = FALSE}
-# code to be hidden for the above exercise
+```{r, include=FALSE}
 # test the model
 scene_hpc_itemDist <- lm(sDistance ~ zAvgSimilarity2OtherScenes, data = subset(df.merged, ROI == "HPC" & Category=="scene"))
 summary(scene_hpc_itemDist)
@@ -760,5 +837,28 @@ ggsave(p_scene_hpc_itemDist, file=paste0("figures/RecallDistance_by_SceneEncodin
 p_scene_hpc_itemDist 
 
 ```
+```{r, eval=FALSE}
+# test the model
+scene_hpc_itemDist <- lm(... ~ ...length(), data = subset(df.merged, ROI == "..." & Category=="..."))
+summary(scene_hpc_itemDist)
 
+# plot
+p_scene_hpc_itemDist <- ggplot(data=subset(df.merged, ROI=="..." & Category =="..."),
+                               aes_string(x="zAvgSimilarity2OtherScenes",y="sDistance")) +
+  geom_point(size=0.5) + geom_smooth(method=lm, se=FALSE, fullrange=FALSE, level=0.95) +
+  theme_minimal() + labs(x="Scene Encoding Similarity in HPC", y="Recall Distance", title="") +
+  theme(plot.title = element_text(face = "bold", size=10), axis.text.y = element_text(face = "bold", size=7),
+        axis.title.x = element_text(face = "bold", size=10), axis.title.y = element_text(face = "bold", size=10),
+        axis.text.x = element_text(face = "bold", size=7), axis.line = element_line(size = 1, colour = "black"),
+        panel.grid = element_blank(), legend.text = element_text(size = 5, face = "bold"))
 
+# save the plot
+ggsave(p_scene_hpc_itemDist, file=paste0("figures/RecallDistance_by_SceneEncodingRSM_HPC.png"), width=10, height=6, units="cm") 
+
+# view the plot
+p_scene_hpc_itemDist 
+
+```
+[Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/solutions/ex5.txt)
+
+![Example solution](figures/RecallDistance_by_SceneEncodingRSM_HPC.png)
