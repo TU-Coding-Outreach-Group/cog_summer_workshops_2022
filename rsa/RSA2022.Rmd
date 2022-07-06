@@ -146,7 +146,7 @@ df.recall
 
 
 ## Task information
-*blurb about what encoding is in a memory paradigm, and how data will be used. Stuff about how hypotheses are tested in this context and the logic behind the analyses. Why is RSA good for this.*
+In the encoding part of the task, subjects passively viewed face (or scene) images paired with a particular location on a 4X4 grid. So they are learning image-location pairings. One of our goals is to understand how similarly the varying images from a category (i.e., face) are represented in the brain, particularly in FFA and HPC. And, how whether their similar neural representations are related to how they will be remembered later.
 
 # Within Subject, Within ROI
 As a reminder we have images from face and scene categories for each subject, in each ROI. We will calculate within and between category similarities.
@@ -275,7 +275,8 @@ dev.off()
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/rsa/solutions/ex1.txt)
 
 
-![Example solution](figures/sub-686_HPC_encodingRSA.png)
+**Example solution**
+![](figures/sub-686_HPC_encodingRSA.png)
 
 ## Fisher z transform
 It is always good practice to normalize all our continuous variables for statistical testing, and the correlations
@@ -544,7 +545,7 @@ corrplot(thisroi_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "bla
 Please note that even with the addition of another subject's data, we get stronger correlations!
 
 Again we can put this into loop to run all our ROIs, we will not really go over it but you can check the code below: 
-```{r, include = FALSE}
+```{r}
 # just to make sure, we should empty the previously used arrays/frames
 df.thisroi <- NA
 thisroi_rsm <- NA
@@ -574,8 +575,6 @@ for (nRoi in 1:length(rois)) {
 }
 
 ```
-
-![](figures/EncodingRSM_GroupLevel_FFA.png)
 
 
 # ROI RSA Predicting Behavior (Memory)
@@ -782,11 +781,12 @@ ggsave(..., file="figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png", width=8, he
 ```
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/solutions/ex4.txt)
 
-![Example solution](figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png)
+**Example solution**
+![](figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png)
 
 
 ## Predicting Recall Precision from Within Category Similarity (Item Level) 
-We will now test a prediction that an image's similarity to its category will be related to how well (precisely) its location will be remembered.
+We will now test a prediction that an image's similarity to its category will be related to how well (precisely) its location will be remembered. In this exercise, our outcome (distance) variable is a continuous variable, so we will fit a linear model using the lm function. As a reminder, we have already z-scored it in the beginning of this section.
 
 Since our outcome variable is categorical (correct (1) vs incorrect(0)), we will fit a nonlinear (binomial) model
 Example: Face similarity in FFA
@@ -862,4 +862,5 @@ p_scene_hpc_itemDist
 ```
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/solutions/ex5.txt)
 
-![Example solution](figures/RecallDistance_by_SceneEncodingRSM_HPC.png)
+**Example Solution**
+![](figures/RecallDistance_by_SceneEncodingRSM_HPC.png)
