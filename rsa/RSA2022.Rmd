@@ -788,7 +788,6 @@ ggsave(..., file="figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png", width=8, he
 ## Predicting Recall Precision from Within Category Similarity (Item Level) 
 We will now test a prediction that an image's similarity to its category will be related to how well (precisely) its location will be remembered. In this exercise, our outcome (distance) variable is a continuous variable, so we will fit a linear model using the lm function. As a reminder, we have already z-scored it in the beginning of this section.
 
-Since our outcome variable is categorical (correct (1) vs incorrect(0)), we will fit a nonlinear (binomial) model
 Example: Face similarity in FFA
 ``` {r}
 face_ffa_itemDist <- lm(sDistance ~ zAvgSimilarity2OtherFaces, data = subset(df.merged, ROI == "FFA" & Category=="face"))
