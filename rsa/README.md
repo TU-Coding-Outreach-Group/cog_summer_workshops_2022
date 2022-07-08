@@ -6,7 +6,6 @@ __**Content creator:**__ Büşra Tanrıverdi
 
 __**Content Editor:**__ Haroon Popal
 
-**WARNING: THIS WORKSHOP IS UNDER CONSTRUCTION, CHANGES WILL BE MADE LATER**
 
 ## Description
 Representational similarity analysis (RSA) is a newer analytic technique that can be used for both neural and behavioral data and is great for exploring high-dimensional data or comparing data across different modalities.
