@@ -29,7 +29,7 @@ Representational similarity analysis (RSA) is a newer analytic technique that ca
 
 ## Workshop Materials
 - [Notebook Viewer](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/rsa/index.html)
-- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/rsa_intro-COG2022.pdf)
+- [Intro Slides](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/blob/main/rsa/RSA_IntroSlides.pdf)
 
 ## Outline
 | Topic | Time | Description |
