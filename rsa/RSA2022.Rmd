@@ -23,6 +23,11 @@ editor_options:
     wrap: 72
 ---
 
+```{r Intro Video, echo = FALSE}
+vembedr::embed_url("https://youtu.be/0ZaJVZnQrRg")
+```
+
+
 ----- NOTES ----- 
 
 | ABBREVIATIONS | VARIABLES |
@@ -70,12 +75,13 @@ options(digits=6)
 ## Define the source directory
 Change this directory to where you downloaded the rsa workshop directory.
 ```{r Setup Directories}
-sourceDir <- "/Users/haroonpopal/Desktop/COG/cog_summer_workshops_2022/rsa/"
+sourceDir <- "/Users/tuk12127/Desktop/COG/cog_summer_workshops_2022/rsa/"
 setwd(sourceDir)
 
 ```
 
 # Introduction to the Dataset
+
 In a memory experiment, subjects learned images paired with a specific location on the screen. 
 
 The workshop dataset includes imaging & behavioral data from 2 subjects from that experiment. 
@@ -255,23 +261,6 @@ corrplot(s2_hpc_corr_mtr, method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = 
 dev.off() 
 
 ```
-```{r, eval=FALSE}
-# Subject-2: 
-# HPC RSA
-s2_hpc_corr <- cor(..., ..., use = "complete.obs", method = "pearson") 
-
-# save the correlation matrix in the results folder
-write.table(data.frame(...),file="results/Sub-686_EncodingRSM_HPC.csv", quote=F,sep=",",row.names=F)
-
-# plot
-s2_hpc_corr_mtr <- as.matrix(...) # turn into a matrix for heat map
-corrplot(..., method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
-
-# Bonus! Save the plot:
-pdf(file="figures/sub-686_HPC_encodingRSA.pdf", width=5, height=5)
-corrplot(..., method = "color", tl.srt = 90, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T, title= "sub-686_HPC_encodingRSA", mar=c(0,0,1,0))
-dev.off()
-```
 [Click for solution](https://github.com/TU-Coding-Outreach-Group/cog_summer_workshops_2022/tree/main/rsa/solutions/ex1.txt)
 
 
@@ -331,37 +320,6 @@ for (nRoi in 1:length(rois)) {
 Alternatively, for each specific ROI, we can create a loop to run all of our subjects' unique ROI RSA iteratively.
 
 Following the example above, you should now create one such for loop for FFA
-```{r, include=FALSE}
-for (nSub in 1:length(subjects)) { 
-
-      # extract the data for this subject & this ROI
-      df.thisroi <- subset(df.fmri, subID==sprintf("%s",subjects[nSub]) & ROI=="FFA")
-      
-      #### Calculate the similarity (correlations)  ####
-      # for this we'd need to make sure the data is coded as numeric.
-      thisroi_rsm <- cor(df.thisroi[3:18], df.thisroi[3:18], use = "complete.obs", method = "pearson") 
-      
-      # Fisher z transform
-      z_thisroi_rsm <- psych::fisherz(thisroi_rsm)
-      
-      # save the similarity matrix (r) in the results directory
-      write.table(data.frame(thisroi_rsm),file=sprintf("results/%s_EncodingRSM_FFA_r.csv",subjects[nSub]), quote=F,sep=",",row.names=F)
-      
-      # save Fosher z-transformed similarity matrix in the results directory
-      write.table(data.frame(z_thisroi_rsm),file=sprintf("results/%s_EncodingRSM_FFA_z.csv",subjects[nSub]), quote=F,sep=",",row.names=F)
-      
-      #### Plot & save  ####
-      # first turn this data frame into a matrix for heat map
-      thisroi_mtr <- as.matrix(thisroi_rsm) 
-
-      pdf(file=sprintf("figures/EncodingRSM_%s_FFA.pdf",subjects[nSub]), width=5, height=5)
-      corrplot(thisroi_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T,
-               title= sprintf("%s: Encoding RSM in FFA",subjects[nSub]), mar=c(0,0,1,0))
-      dev.off()
-      
-}
-
-```
 ```{r, eval=FALSE}
 for (nSub in 1:length(...)) { 
 
@@ -451,53 +409,6 @@ for (nSub in 1:length(...)) {
       
       # increase nRow by total row numbers of thisroi_rsm to correctly save info from the next iteration
       nRow <- ... + nrow(thisroi_rsm)
-        
-  }
-}
-
-# finally name columns for similarity values: since these are same as the row names, we can directly copy them over.  
-names(masterdata)[4:19] <- row.names(thisroi_rsm)
-
-# save the master dataset as is
-write.table(data.frame(masterdata),file="results/AllSubjects_AllROIs_EncodingRSM.csv", quote=F,sep=",",row.names=F)
-```
-```{r, include=FALSE}
-# for the loop, we will use the data frame we created with all the subject/roi information
-# create the empty master dataset
-nRow <-1
-
-for (nSub in 1:length(subjects)) { 
-  
-  for (nRoi in 1:length(rois)) { 
-    
-      # extract the data for this subject & this ROI
-      df.thisroi <- subset(df.fmri, subID==sprintf("%s",subjects[nSub]) & ROI==sprintf("%s",rois[nRoi]))
-      
-      #### Calculate the similarity (correlations)  ####
-      # for this we'd need to make sure the data is coded as numeric.
-      thisroi_rsm <- cor(df.thisroi[3:18], df.thisroi[3:18], use = "complete.obs", method = "pearson") 
-
-      # save the similarity matrix in the results directory
-      write.table(data.frame(thisroi_rsm),file=sprintf("results/%s_EncodingRSM_%s.csv",subjects[nSub],rois[nRoi]), quote=F,sep=",",row.names=F)
-      
-      #### Plot & save  ####
-      # first turn this data frame into a matrix for heat map
-      thisroi_mtr <- as.matrix(thisroi_rsm) 
-
-      pdf(file=sprintf("figures/EncodingRSM_%s_%s.pdf",subjects[nSub],rois[nRoi]), width=5, height=5)
-      corrplot(thisroi_mtr, method = "color", tl.srt = 45, tl.cex = 0.5, tl.col = "black", col = viridis(12), diag = T,
-               title= sprintf("%s: Encoding RSM in %s",subjects[nSub],rois[nRoi]), mar=c(0,0,1,0))
-      dev.off()
-      
-      #### Save this similarity matrix into the master data together with subject/roi information ####
-      masterdata[c(nRow:(nRow+nrow(thisroi_rsm)-1)),c(1:3)] <- cbind(matrix(rep(subjects[nSub],length.out=nrow(thisroi_rsm))), # repeat the subject name
-                                                               matrix(rep(rois[nRoi],length.out=nrow(thisroi_rsm))),
-                                                               row.names(thisroi_rsm)) # get the similarity between images
-      
-      masterdata[c(nRow:(nRow+nrow(thisroi_rsm)-1)),c(4:19)] <- thisroi_rsm # get the similarity between images
-      
-      # increase nRow by total row numbers of thisroi_rsm to correctly save info from the next iteration
-      nRow <- nRow + nrow(thisroi_rsm)
         
   }
 }
@@ -731,30 +642,6 @@ p_face_ffa_itemAcc
 
 ### Exercise-4
 Test scene similarity in HPC in relation to recall accuracy
-```{r, include=FALSE}
-# test the model
-scene_hpc_itemAcc <- glm(Response ~ zAvgSimilarity2OtherScenes, data = subset(df.merged, ROI == "HPC" & Category=="scene"), 
-                        family = "binomial")
-summary(scene_hpc_itemAcc)
-
-
-# plot 
-p_scene_hpc_itemAcc <- ggplot(data=subset(df.merged, ROI == "HPC" & Category=="scene"), 
-            aes_string(x="Accuracy", y="zAvgSimilarity2OtherScenes")) + 
-  geom_bar(stat="summary", fun="mean", width=.4, position="dodge") + theme_minimal() +
-  labs(x="Recall Performance", y="Scene Similarity (Avg) in HPC", title="") +
-  theme(plot.title = element_text(face = "bold", size = 6), axis.text.y = element_text(size = 7, face ="bold"),
-        axis.text.x = element_text(size = 7, face ="bold"), axis.title.x = element_text(size = 7, face = "bold"),
-        axis.line = element_line(size = 1, colour = "black"),panel.grid = element_blank(), legend.title = element_blank(), 
-        legend.position = "top", legend.text = element_text(size = 7, face = "bold"), aspect.ratio=0.7) +
-  scale_y_continuous(limits = c(0,1))
-
-# save the plot
-ggsave(p_scene_hpc_itemAcc, file="figures/Scene_Accuracy_by_EncodingRSM_in_HPC.png", width=8, height=6, units="cm")
-
-# view the plot
-p_scene_hpc_itemAcc
-```
 ```{r, eval=FALSE}
 # test the model
 scene_hpc_itemAcc <- glm(... ~ ..., data = subset(df.merged, ROI == "HPC" & Category=="scene"), 
@@ -815,28 +702,6 @@ p_face_ffa_itemDist
 
 ### Exercise-5
 Test scene similarity in HPC in relation to recall distance
-```{r, include=FALSE}
-# test the model
-scene_hpc_itemDist <- lm(sDistance ~ zAvgSimilarity2OtherScenes, data = subset(df.merged, ROI == "HPC" & Category=="scene"))
-summary(scene_hpc_itemDist)
-
-# plot
-p_scene_hpc_itemDist <- ggplot(data=subset(df.merged, ROI=="HPC" & Category =="scene"),
-                               aes_string(x="zAvgSimilarity2OtherScenes",y="sDistance")) +
-  geom_point(size=0.5) + geom_smooth(method=lm, se=FALSE, fullrange=FALSE, level=0.95) +
-  theme_minimal() + labs(x="Scene Encoding Similarity in HPC", y="Recall Distance", title="") +
-  theme(plot.title = element_text(face = "bold", size=10), axis.text.y = element_text(face = "bold", size=7),
-        axis.title.x = element_text(face = "bold", size=10), axis.title.y = element_text(face = "bold", size=10),
-        axis.text.x = element_text(face = "bold", size=7), axis.line = element_line(size = 1, colour = "black"),
-        panel.grid = element_blank(), legend.text = element_text(size = 5, face = "bold"))
-
-# save the plot
-ggsave(p_scene_hpc_itemDist, file=paste0("figures/RecallDistance_by_SceneEncodingRSM_HPC.png"), width=10, height=6, units="cm") 
-
-# view the plot
-p_scene_hpc_itemDist 
-
-```
 ```{r, eval=FALSE}
 # test the model
 scene_hpc_itemDist <- lm(... ~ ...length(), data = subset(df.merged, ROI == "..." & Category=="..."))
@@ -863,3 +728,10 @@ p_scene_hpc_itemDist
 
 **Example Solution**
 ![](figures/RecallDistance_by_SceneEncodingRSM_HPC.png)
+
+# Outro
+
+```{r Outro Video, echo = FALSE}
+vembedr::embed_url("https://youtu.be/A8n36ZXhDqs")
+```
+
