@@ -1,0 +1,107 @@
+---
+title: "semdistflow tutorial"
+author: "Celia Litovsky, PhD"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    css: !expr ("/Users/tuo17460/Google Drive/StylesTemplates/jr_15.css")
+---
+
+```{r setup, include=FALSE}
+library(semdistflow)
+library(tidytext)
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(stringr)
+library(zoo)
+library(stringi)
+library(printr)
+library(gutenbergr)
+library(readr)
+library(here)
+```
+
+# Preparing Your Texts
+
+Each text you wish to process should be saved as a .txt file. Your texts should be stored in one folder. The file names in a given folder should be unique. 
+
+# Loading your texts
+```{r}
+mytexts <- readtxt(here("mytexts")) # input path name to .txt files, read in files
+```
+
+# Read in text
+```{r}
+### You can input text in one of three main ways: (1) from Project Gutenberg, (2), from .txt file(s), or  (3) from directly typing it in
+
+## text from Project Gutenberg (requires gutenbergr package)
+janeeyre <- gutenberg_download(1260, mirror = "http://mirrors.xmission.com/gutenberg/")
+
+# # need to change column names for cleaning script, new_name = old_name
+# janeeyre %>%
+#   rename(doc_id = gutenberg_id,
+#          doc_text = text) -> janeeyre
+
+# change doc_id to something meaningful for later
+# janeeyre %>%
+#   mutate(doc_id = "janeeyre") -> janeeyre
+
+# remove gutenberg_id column
+janeeyre <- subset(janeeyre, select=text)
+
+# remove empty rows
+janeeyre <- janeeyre[!apply(janeeyre == "", 1, all),]
+
+# remove extra spaces
+janeeyre <- trimws(janeeyre)
+
+write.table(janeeyre, "janeeyre_full.txt", row.names = FALSE, col.names = FALSE)
+
+# read the Gutenberg txt file back in
+janeeyre <- readtxt("/Users/litovsky/Dropbox/mytexts/")
+
+## from .txt file - give the function readtxt the path name to a folder
+cats <- readtxt("/Users/litovsky/Dropbox/COG Workshop 2022 semdistflow/")
+cats %>%
+  mutate(doc_id = "cats") -> cats
+
+## or just type in your text here
+doc_id <- "fox" # each document will have its own doc_id
+doc_text <- "The quick brown fox jumps over the lazy dog."
+fox <- as.data.frame(cbind(doc_id,doc_text))
+```
+
+The resulting data.frame should have two columns "doc_id" and "doc_text". 
+```{r}
+print(janeeyre)
+print(cats)
+print(fox)
+```
+
+# "Cleaning" your data 
+```{r clean,}
+janeeyre.clean <- cleanme(janeeyre, replace_pronoun = TRUE) # performs all cleaning functions on the texts in mytexts. replace_pronoun = TRUE changes pronouns to simple antecedent (e.g., he -> person). replace_pronoun = FALSE keeps pronouns as-is
+cats.clean <- cleanme(cats, replace_pronoun = TRUE)
+fox.clean <- cleanme(fox, replace_pronoun = TRUE)
+```
+
+# Notice new column "doc_clean" has been added with the cleaned text
+
+```{r, clean table print, echo=FALSE}
+head(janeeyre.clean)
+head(cats.clean)
+head(fox.clean)
+```
+
+# Computing cosine distances
+```{r clean,}
+janeeyre.dist <- distme(janeeyre.clean)
+cats.dist <- distme(cats.clean)
+fox.dist <- distme(fox.clean)
+```
+
