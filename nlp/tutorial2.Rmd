@@ -1,0 +1,82 @@
+---
+title: "Tutorial 2"
+output: html_document
+date: '2022-07-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(semdistflow)
+library(ggplot2)
+library(gutenbergr)
+library(table1)
+library(here)
+```
+
+## Aside - AphasiaBank example
+
+
+## Comparing books/authors by semantic distance
+
+```{r}
+# to find the Gutenberg ID of your book of choice use:
+# gutenbergr::gutenberg_metadata %>%
+#   filter(title == "The Secret Garden")
+
+# download books - here are example download links - I've given some snippets of Roald Dahl vs. Charlotte Bronte in the /mytexts folder
+# secretgarden <- gutenberg_download(113, mirror = "http://mirrors.xmission.com/gutenberg/")
+# janeeyre <- gutenberg_download(1260, mirror = "http://mirrors.xmission.com/gutenberg/")
+```
+
+# read in txt file
+```{r}
+mytexts <- readtxt(folder_name = "/Users/tuo17460/semdistflow/mytexts/") # input path name to folder containing .txt file(s)
+```
+
+# clean texts
+```{r}
+mytexts.clean <- cleanme(mytexts, replace_pronoun = TRUE) # performs all cleaning functions on the texts in mytexts
+```
+
+# compute cosine distances
+```{r clean,}
+source("~/Dropbox/semdistflow/R/distme.R", local = knitr::knit_global())
+mytexts.dist <- distme(mytexts.clean, lemmatize = TRUE)
+```
+
+```{r}
+table1(~Sd15_CosRev0Score + Glowca_CosRev0Score | doc_id, data=mytexts.dist)
+```
+
+## Compute time series of semantic distance
+```{r}
+library(stringr)
+mytexts.glove <- mytexts.dist %>% 
+  mutate(text_name = sub('.*\\/', '', doc_id))
+
+mytexts.glove<- mytexts.glove %>%
+  group_by(doc_id) %>% 
+  mutate(id = row_number())
+
+
+theme_plot <- ggplot(mytexts.glove, aes(x = id, y=Glowca_CosRev0Score)) +  geom_line(color="#02401BD9") + facet_grid(~text_name, scales="free")
+
+theme_plot
+```
+
+```{r}
+mytexts.semdist <- mytexts.dist %>% 
+  mutate(text_name = sub('.*\\/', '', doc_id))
+
+mytexts.semdist<- mytexts.semdist %>%
+  group_by(doc_id) %>% 
+  mutate(id = row_number())
+
+
+tax_plot <- ggplot(mytexts.semdist, aes(x = id, y=Sd15_CosRev0Score)) +  geom_line(color="#EBCC2AA3") + facet_grid(~text_name, scales="free")
+
+tax_plot
+```
+```
+
