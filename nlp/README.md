@@ -39,8 +39,8 @@ In this workshop, we will discuss one of many natural language processing techni
 
 ## Workshop Materials
 
-- [Notebook Viewer Part 1](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/nlp/tutorial1/index.html)
-- [Notebook Viewer Part 2](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/nlp/tutorial2/index.html)
+- [Notebook Viewer Tutorial 1](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/nlp/tutorial1/index.html)
+- [Notebook Viewer Tutorial 2](https://tu-coding-outreach-group.github.io/cog_summer_workshops_2022/nlp/tutorial2/index.html)
 
 ## Outline
 | Topic | Time | Description |
