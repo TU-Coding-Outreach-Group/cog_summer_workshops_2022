@@ -23,13 +23,27 @@ In this workshop, we will discuss one of many natural language processing techni
     - ggplot2
     - tidyr
     - cocor
-    - lme4
-    - lmerTest
     - optimx
     - stringr
     - viridis
     - purrr
     - here
+    - tm
+    - textclean
+    - tibble
+    - data.table
+    - raster
+    - magrittr
+    - jmvcore
+    - remotes
+    - tidytext
+    - tidyverse
+    - kableExtra
+    - stringi
+    - knitr
+    - lsa
+    - textstem
+    - printr
 4. Download the included text files for use in Tutorial 2
     
 ## Workshop objectives:
