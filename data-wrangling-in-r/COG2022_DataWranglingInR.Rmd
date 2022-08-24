@@ -73,7 +73,7 @@ if(length(p_to_install) > 0){
 
 lapply(wrangling_packages, library, character.only = TRUE)
 ```
-NOTE: If you receive an error stating: ```error: JAVA_HOME cannot be determined from the Registry```, try [this troubleshooting page to resolve the issue](https://www.r-statistics.com/2012/08/how-to-load-the-rjava-package-after-the-error-java_home-cannot-be-determined-from-the-registry/).
+NOTE: If you receive an error stating: ```error: JAVA_HOME cannot be determined from the Registry```, try [this troubleshooting page to resolve the issue](https://www.r-statistics.com/2012/08/how-to-load-the-rjava-package-after-the-error-java_home-cannot-be-determined-from-the-registry/). [This source](https://statisticsglobe.com/r-error-java-home-cannot-be-determined-from-the-registry#:~:text=So%20why%20does%20the%20error,64%2Dbit%20version%20of%20Java.) also suggests that it may be because you are using a 32-bit version of Java and a 64-bit version of R. Downloading a 64-bit version of both should fix the issue.
 
 Now let's clean our environment of the variables we won't need 
 ```{r Removing Unnecessary Variables}
@@ -98,7 +98,7 @@ rm(wd)
 getwd()
 
 #change the directory to where you have the COG2022_DataWranglinginR.csv saved
-wd <- "C:/Users/tui81100/Documents/GitHub/cog_summer_workshops_2022/data-wrangling-in-r/"
+wd <- "C:/Users/Administrator/Documents/GitHub/cog_summer_workshops_2022/data-wrangling-in-r/"
 setwd(wd)
 
 #we won't be using the variable wd any longer
@@ -299,7 +299,49 @@ head(nyt, n = 10)
 
 ## Using piping to make data wrangling more concise
 
-By using piping through the ```magittr``` package, it's possible to execute all of what we worked though above in one code chunk! We will first save the raw data to a new dataframe called "nyt_concise", and execute a more concise version of the steps taken above to reach the same result we have in our current "nyt" dataframe. Keep in mind that there are multiple ways to do this-- for example, you could select the columns directly or using the ```matches``` argument as I do here.
+Piping is a coding technique that's not necessarily unique to R, but which the R community has whole-heartedly adopted and thus has kind of become strongly associated with R. Piping in R is possible through the ```magittr``` package, which itself is included in the ```tidyverse``` packages. What actually is it though?
+
+Let's say we had a calculation that we had to perform in multiple steps. We *could* do something like this:
+
+```{r A meaningless calculation}
+# Setting a 'seed value' to make sure that we get the same random sample every time this script is ran
+set.seed(0)
+# Asking R to randomly pick 20 unique values between 1 and 1000
+x <- sample(1:1000, size = 20, replace = F)
+# Asking R to calculate the mean value of those 20 random numbers
+y <- mean(x)
+# Asking R to calculate the log of the mean value
+z <- log(y)
+# Asking R to round that logged mean value to a whole number.
+(final <- round(z))
+```
+
+where we very methodologically, very slowly build up to the final value of 6. However, we sort of clog our environment with values and objects we don't actually care about. X,Y and Z are really just a means to get to *final*, right? A way around that might be something like this:
+
+```{r A meaningless calculation but less legible}
+set.seed(0)
+(final <- round(log(mean(sample(1:1000, size = 20, replace = F)))))
+```
+
+Where we nest functions within other functions. Obviously we come to the same conclusion, but we've avoided creating these unnecessary fly-over values that we don't really care about. However, it could be a little messy and hard to follow. Piping fixes that:
+
+```{r A meaningless calculation but now cooler}
+set.seed(0)
+(final <- sample(1:1000, size = 20, replace = F) %>%
+          mean() %>%
+          log() %>%
+          round())
+```
+
+What we're doing is taking the product of the first argument and entering it into the one that follows, then taking the product of that function and piping it as the input into the next one, and so one. Thus, piping! It's simpler (we don't need to even enter anything for the subsequent commands, but you could if you wanted to change the default values the functions use), it's cleaner to read (partially because it's simpler), and it'll keep your environment clean as well.
+
+Pipes as tools have really exploded in popularity in R. The most common means of noting a pipe is ```%>%``` but there are all sorts of deviations which have special functions (e.g., ```%in%```). We won't really get to those, but you should just know pipes can get as wacky and crazy as you want to. 
+
+```{r Cleaning Useless Pipe Text Example Values, eval=TRUE, include=FALSE}
+rm(final, x, y, zr)
+```
+
+So, though piping it's possible to execute all of what we worked though above in one code chunk! We will first save the raw data to a new dataframe called "nyt_concise", and execute a more concise version of the steps taken above to reach the same result we have in our current "nyt" dataframe. Keep in mind that there are multiple ways to do this-- for example, you could select the columns directly or using the ```matches``` argument as I do here.
 
 ```{r magittr concise}
 nyt_concise <- nyt_raw
