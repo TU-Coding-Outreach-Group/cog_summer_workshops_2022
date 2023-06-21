@@ -1,29 +1,23 @@
 /* Whole document: */
 body{
-    font-family: Helvetica;
-    font-size: 12pt;
+    font-family: avenir;
+    font-size: 13pt;
     color: rgb(0, 0, 0);
-    background-color: #ffffff;
+    background-color: #f2f2f2;
    /* background-image: url("background-hex.jpg"); */
   }
   
   /* Headers */
   
-  h1.title {
+  h1.title {color: #ffffff;
     font-size: 24pt;
-    font-weight: 600;
-    background-image: radial-gradient(#8A8D8F, #ffffff);
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    background-color: #9D2235;
-    opacity: 1.0;
+    background-color: #720000;
+    opacity: 1.0; /* completely opaque */
     padding-top: 1em;
     padding-bottom: .2em;
     padding-left: .1em;
-    text-align: center;
-    border-left: 15px solid #8A8D8F;
-    border-right: 15px solid #8A8D8F;
+    text-align: left;
+    /* border-left: 15px solid #074a17; adds a little green stripe on the left border */
     
   }
   
@@ -34,9 +28,9 @@ body{
   
   h1 {
     font-size: 22pt;
-    color: 	 #8A8D8F;
-    background-color: #9D2235;
-    opacity: .50;
+    color: 	 white;
+    background-color: #000000;
+    padding-left: .5em;
     padding-top: .25em;
     
   }
@@ -45,30 +39,29 @@ body{
   h2 { 
     font-size: 18pt;
     color:  #000000;  
-    background-color: #8A8D8F;
-    opacity: .50;
-    padding-left: .5em;
-    padding-top: .5em;
+    background-color: lightgray;
+      padding-top:.5em;
+      opacity: 1.0; 
   }
   
   h3 { 
     font-size: 16pt;
-    color: #000000;
-    padding-top:.5em;
-    font-style: italic;
+     color: #000000;
+      padding-top:.5em;
+      font-style: italic;
   }
 
   h4 { 
     font-size: 14pt;
-    color: #000000;
-    padding-top:.5em;
+     color: #000000;
+      padding-top:.5em;
   }
   
   
   /* Code Chunks */
   pre {
     max-height: 350px;
-    background-color: #8A8D8F;
+    background-color: #ffffff;
     overflow-y: auto;
   }
   
@@ -108,15 +101,15 @@ body{
   /* TOC */
   
   div #TOC {float:right;
-  width:25%;
-  font-size: 12pt;
-  border: 2px solid #9D2235;
+  width:20%;
+  font-size: 11pt;
+  border: .5px solid #720000;
   border-radius: 10px;
   background: white;
   padding: .5em;
   overflow:hidden;
-  overflow-y:inherit;
-  box-shadow: 4px 4px 5px #888;
+  overflow-y:inherit
+  /*  box-shadow: 4px 4px 5px #888; */
   }
   
 .tocify-subheader > .tocify-item {
